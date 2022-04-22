@@ -1,0 +1,8 @@
+{
+    "hello_world" : ["hello_world", "hello_world_test", "output_handler_test"],
+    "magic_wand": ["magic_wand_test", "gesture_predictor_test", "gesture_output_handler_test", "gesture_accelerometer_handler_test"],
+    "micro_speech": ["micro_features_generator_test", "micro_speech_test", "audio_provider_test", "audio_provider_mock_test", "feature_provider_mock_test", 
+    "recognize_commands_test", "command_responder_test"],
+    "person_detection": ["image_provider_test_int8", "detection_responder_test_int8"],
+    "nmsis_tests": ["add", "conv", "depthwise_conv", "fully_connected", "mul", "pooling", "softmax", "svdf"]
+}

@@ -24,6 +24,17 @@
 
 set -e
 
+# Patches the Nuclei SDK to work around build issues with bigger ilm/dlm.
+patch_nuclei_sdk() {
+  local nsdk_dir="${1}"
+
+  local nsdk_demosoc_lds=${1}/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_ilm.ld
+
+  echo "Patching Nuclei SDK, change demosoc ilm link script file, ilm/dlm size changed from 64K to 512K"
+  sed -i "s/64K/512K/g" $nsdk_demosoc_lds
+  echo "Finished preparing Nuclei SDK files"
+}
+
 # Patches the Ambiq Micro SDK to work around build issues.
 patch_am_sdk() {
   local am_dir="${1}"
@@ -173,6 +184,8 @@ download_and_extract() {
 
   if [[ ${action} == "patch_am_sdk" ]]; then
     patch_am_sdk ${dir}
+  elif [[ ${action} == "patch_nuclei_sdk" ]]; then
+    patch_nuclei_sdk ${dir}
   elif [[ ${action} == "patch_cifar10_dataset" ]]; then
     patch_cifar10_dataset ${dir}
   elif [[ ${action} == "build_embarc_mli" ]]; then

@@ -129,7 +129,8 @@ if [[ "x$CORE" == "xnuclei"* ]] ; then
 else
     RESULTS_DIRECTORY=/tmp/nuclei_qemu/${CORE}${ARCH_EXT}_logs
     mkdir -p ${RESULTS_DIRECTORY}
-    run_all_tests
+    fulllog=${RESULTS_DIRECTORY}/full.log
+    run_all_tests | tee $fulllog
 fi
 
 

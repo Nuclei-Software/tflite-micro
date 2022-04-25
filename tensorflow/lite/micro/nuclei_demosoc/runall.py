@@ -8,12 +8,14 @@ import subprocess
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 RUNSH=os.path.join(SCRIPT_DIR, "run.sh")
 
-def run_app(app, case, core, archext, log):
+def run_app(app, case, core, archext, log, build=False):
     if os.path.isfile(log) == False:
         logdir = os.path.dirname(log)
         if os.path.isdir(logdir) == False:
             os.makedirs(logdir)
     runcmd = "TMOUT=10s CORE=%s ARCH_EXT=%s %s %s %s > %s 2>&1" % (core, archext, RUNSH, app, case, log)
+    if build:
+        runcmd = "BUILD=1 %s" % (runcmd)
     print("Run CFG=%s%s APP=%s, CASE=%s, LOG=%s :" %(core, archext, app, case, log), end = "")
     sys.stdout.flush()
     ret = os.system(runcmd)
@@ -48,6 +50,7 @@ def run_app_in_json(jf, core, archext, logdir):
     jsd = json.load(open(jf))
     passcnt = 0
     totalcnt = 0
+    build = True
     for key in jsd:
         for item in jsd[key]:
             app = item
@@ -59,7 +62,9 @@ def run_app_in_json(jf, core, archext, logdir):
                 lgfn = "%s_%s" % (app, case)
             log = os.path.join(logdir, lgfn + ".log")
             totalcnt += 1
-            ret = run_app(app, case, core, archext, log)
+            if totalcnt > 1:
+                build = False
+            ret = run_app(app, case, core, archext, log, build)
             if ret == True:
                 passcnt += 1
 

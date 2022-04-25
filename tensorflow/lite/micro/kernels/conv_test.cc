@@ -245,7 +245,9 @@ TF_LITE_MICRO_TEST(SimpleTestQuantized16x8PerChannel64bBias) {
           &tflite::testing::common_conv_params, tflite::Register_CONV_2D(),
           output_data));
 }
+#endif
 
+#if !(defined(CMSIS_NN) || defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SimpleTestQuantized16x8PerChannel32bBias) {
   const int output_dims_count = 12;
   int16_t output_data[output_dims_count];
@@ -352,6 +354,7 @@ TF_LITE_MICRO_TEST(SimpleTestQuantizedPerChannelRelu6) {
           output_data));
 }
 
+#if !(defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SimpleTestQuantized16x8PerChannelRelu664bBias) {
   const int output_dims_count = 12;
   int16_t output_data[output_dims_count];
@@ -384,6 +387,7 @@ TF_LITE_MICRO_TEST(SimpleTestQuantized16x8PerChannelRelu664bBias) {
           golden_data, golden_quantized, output_scale, output_zero_point,
           &conv_params, tflite::Register_CONV_2D(), output_data));
 }
+#endif
 
 TF_LITE_MICRO_TEST(SimpleTestQuantized16x8PerChannelRelu632bBias) {
   const int output_dims_count = 12;
@@ -524,6 +528,7 @@ TF_LITE_MICRO_TEST(Kernel1x1QuantizedPerChannelRelu6) {
                      &conv_params, tflite::Register_CONV_2D(), output_data));
 }
 
+#if !(defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(Kernel1x1Quantized16x8PerChannelRelu6) {
   // conv params:
   // padding, stride_<width,height>, activation, dilation_<width, height>
@@ -572,6 +577,7 @@ TF_LITE_MICRO_TEST(Kernel1x1Quantized16x8PerChannelRelu6) {
                      golden_quantized, output_scale, output_zero_point,
                      &conv_params, tflite::Register_CONV_2D(), output_data));
 }
+#endif
 
 TF_LITE_MICRO_TEST(BroadcastPerLayerQuantizationToPerChannelShouldMatchGolden) {
   const int output_dims_count = 12;

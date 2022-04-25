@@ -88,7 +88,7 @@ inline TfLiteRegistration Register_CONV_2D_INT8REF() {
 }
 #endif
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 // Returns a TfLiteRegistration struct for kernel variant that only supports
 // int8 activations and int8 weights and uses the latency optimized
 // implementations.

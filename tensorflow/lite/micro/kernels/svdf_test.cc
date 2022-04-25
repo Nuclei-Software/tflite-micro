@@ -872,7 +872,7 @@ TF_LITE_MICRO_TEST(SvdfFloat2x2Input2x4OutputShouldMatchGolden) {
 #endif
 
 // Only reference kernels suport full int8 svdf currently.
-#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON))
+#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON) || defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SvdfQuantized2x2Input2x4OutputShouldMatchGoldenInt8) {
   tflite::testing::SvdfQuantized2x2Input2x4OutputShouldMatchGolden<int8_t>();
 }
@@ -949,7 +949,7 @@ TF_LITE_MICRO_TEST(SvdfFloat1x16Input64x1OutputReluShouldMatchGolden) {
 #endif
 
 // Only reference kernels suport full int8 svdf currently.
-#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON))
+#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON) || defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputShouldMatchGoldenInt8) {
   tflite::testing::SvdfQuantized1x16Input64x1OutputShouldMatchGolden<int8_t>();
 }
@@ -960,7 +960,7 @@ TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputShouldMatchGoldenInt16) {
 }
 
 // Only reference kernels suport full int8 svdf currently.
-#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON))
+#if !(defined(XTENSA) || defined(CMSIS_NN) || defined(HEXAGON) || defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputReluShouldMatchGoldenInt8) {
   tflite::testing::SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden<
       int8_t>();

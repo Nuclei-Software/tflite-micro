@@ -3,6 +3,6 @@
     "magic_wand": ["magic_wand_test", "gesture_predictor_test", "gesture_output_handler_test", "gesture_accelerometer_handler_test"],
     "micro_speech": ["micro_features_generator_test", "micro_speech_test", "audio_provider_test", "audio_provider_mock_test", "feature_provider_mock_test", 
     "recognize_commands_test", "command_responder_test"],
-    "person_detection": ["image_provider_test_int8", "detection_responder_test_int8"],
-    "nmsis_tests": ["add", "conv", "depthwise_conv", "fully_connected", "mul", "pooling", "softmax", "svdf"]
+    "person_detection": ["image_provider_test", "detection_responder_test"],
+    "kernel_tests": ["kernel_conv_test", "kernel_add_test", "kernel_depthwise_conv_test", "kernel_fully_connected_test", "kernel_mul_test", "kernel_pooling_test", "kernel_softmax_test", "kernel_svdf_test"]
 }

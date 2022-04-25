@@ -5,6 +5,7 @@ TARGET=nuclei_demosoc
 CORE=${CORE:-nx900fd}
 ARCH_EXT=${ARCH_EXT-pv}
 CLEAN=${CLEAN:-0}
+BUILD=${BUILD:-0}
 RUNON=${RUNON:-qemu}
 TMOUT=${TMOUT:-}
 
@@ -18,7 +19,7 @@ TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
 APPBINS=tensorflow/lite/micro/tools/make/gen/${TARGET}_${CORE}${ARCH_EXT}_micro/bin
 
-makeopts="-f ${TF_ROOT}/tensorflow/lite/micro/tools/make/Makefile TARGET=${TARGET} CORE=${CORE} ARCH_EXT=${ARCH_EXT} OPTIMIZED_KERNEL_DIR=${OPTIMIZED}"
+makeopts="-f ${TF_ROOT}/tensorflow/lite/micro/tools/make/Makefile -j TARGET=${TARGET} CORE=${CORE} ARCH_EXT=${ARCH_EXT} OPTIMIZED_KERNEL_DIR=${OPTIMIZED}"
 
 if [ "x$RUNON" == "xqemu" ] ; then
     makeopts="$makeopts SIMU=qemu"
@@ -49,7 +50,7 @@ function build_app {
     local appname=${1:-hello_world}
     local appcase=${2:-add}
     echo "Build APP=$appname, CASE=$appcase"
-    local runcmd="make ${makeopts} TEST_CASE=${appcase} ${appname}"
+    local runcmd="make ${makeopts} TEST_CASE=${appcase} build"
     echo $runcmd
     eval $runcmd
 }
@@ -88,6 +89,7 @@ function run_app {
 function do_run {
     local appname=${1:-hello_world}
     local appcase=${2:-add}
+    local appfile=${APPBINS}/$appname
 
     pushd $TF_ROOT
     if [ "x$CLEAN" == "x1" ] ; then
@@ -96,7 +98,10 @@ function do_run {
     if [ "x$appname" == "xnmsis_tests" ] ; then
         rm_app $appname
     fi
-    build_app $appname $appcase
+    # only build app if app not exist
+    if [ ! -f $appfile ] || [ "x$BUILD" == "x1" ]; then
+        build_app $appname $appcase
+    fi
     run_app $appname
     popd
 }

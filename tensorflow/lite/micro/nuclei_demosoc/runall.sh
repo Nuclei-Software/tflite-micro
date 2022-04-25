@@ -2,7 +2,16 @@
 DRYRUN=${DRYRUN:-0}
 LOGDIR=${LOGDIR:-gen}
 
+SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
+SCRIPTDIR=$(readlink -f $SCRIPTDIR)
+
+BUILDGENDIR=${SCRIPTDIR}/../tools/make/gen
+
+rm -rf $BUILDGENDIR/nuclei_demosoc*
+
 mkdir -p $LOGDIR
+
+pushd $SCRIPTDIR
 for core in n205 n300 n600f n900fd nx900 nx900f nx900fd
 do
     for archext in "" p v pv
@@ -28,3 +37,4 @@ do
         fi
     done
 done
+popd

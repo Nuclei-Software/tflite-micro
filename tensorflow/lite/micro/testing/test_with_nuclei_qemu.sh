@@ -28,6 +28,8 @@ CORE=${3:-nx900fd}
 ARCH_EXT=${4-pv}
 RUNON=${5:-qemu}
 DRYRUN=${DRYRUN:-0}
+TMOUT=${TMOUT:-}
+LOGDIR=${LOGDIR:-/tmp/nuclei_demosoc}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TFLM_ROOT_DIR=${SCRIPT_DIR}/..
@@ -57,7 +59,9 @@ function run_test {
         runcmd="timeout -s 9 --preserve-status --foreground $TMOUT $runcmd"
     fi
     echo $runcmd
-    eval $runcmd
+    if [ "x$DRYRUN" = "x0" ] ; then
+        eval $runcmd
+    fi
 }
 
 function run_check_test {
@@ -117,7 +121,7 @@ function run_for_target {
         CORE=n900fd
         ARCH_EXT=bpkv
     fi
-    RESULTS_DIRECTORY=/tmp/nuclei_qemu/run_logs
+    RESULTS_DIRECTORY=$LOGDIR/run_logs
     mkdir -p ${RESULTS_DIRECTORY}
     run_all_tests
 }
@@ -127,10 +131,11 @@ if [[ "x$CORE" == "xnuclei"* ]] ; then
     # for run_xxx or test_xxx target, see helper_functions.inc
     run_for_target
 else
-    RESULTS_DIRECTORY=/tmp/nuclei_qemu/${CORE}${ARCH_EXT}_logs
+    RESULTS_DIRECTORY=$LOGDIR/${CORE}${ARCH_EXT}_logs
     mkdir -p ${RESULTS_DIRECTORY}
     fulllog=${RESULTS_DIRECTORY}/full.log
     run_all_tests | tee $fulllog
+    echo "Please check the full log in $fulllog"
 fi
 
 

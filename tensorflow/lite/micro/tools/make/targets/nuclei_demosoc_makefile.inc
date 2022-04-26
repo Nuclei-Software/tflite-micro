@@ -130,10 +130,11 @@ $(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Source/*.c) \
 $(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Source/*.c)
 
 THIRD_PARTY_CC_SRCS += $(NUCLEI_SDK_SRCS)
+LINKER_SCRIPT ?= $(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_$(DOWNLOAD).ld
 
 LDFLAGS += \
- -T$(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_$(DOWNLOAD).ld \
- -Wl,-M,-Map=$(BINDIR)build.map \
+ -T $(LINKER_SCRIPT) \
+ -Wl,-M,-Map=$(@)_build.map \
  -nostartfiles \
  --specs=nano.specs -u _printf_float \
  --specs=nosys.specs \

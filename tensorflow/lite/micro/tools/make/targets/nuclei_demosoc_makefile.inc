@@ -147,6 +147,14 @@ LDLIBS = -lnmsis_nn_$(RISCV_ARCH) -lnmsis_dsp_$(RISCV_ARCH)
 
 LDFLAGS += $(LDLIBS)
 
+# Excludes memory_arena_threshold_test because of the size difference between
+# reference OP and optimized OP.
+# see https://github.com/tensorflow/tflite-micro/issues/498
+EXCLUDED_TESTS := \
+  tensorflow/lite/micro/memory_arena_threshold_test.cc
+
+MICROLITE_TEST_SRCS := $(filter-out $(EXCLUDED_TESTS), $(MICROLITE_TEST_SRCS))
+
 TEST_SCRIPT := tensorflow/lite/micro/testing/test_with_nuclei_qemu.sh
 
 # We are setting this variable to non-zero to allow us to have a custom

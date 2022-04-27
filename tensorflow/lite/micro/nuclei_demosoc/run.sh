@@ -7,6 +7,7 @@ ARCH_EXT=${ARCH_EXT-pv}
 CLEAN=${CLEAN:-0}
 BUILD=${BUILD:-0}
 RUNON=${RUNON:-qemu}
+DRYRUN=${DRYRUN:-0}
 TMOUT=${TMOUT:-}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
 
@@ -50,7 +51,9 @@ function env_setup {
 function clean_app {
     runcmd="make ${makeopts} clean"
     echo $runcmd
-    eval $runcmd
+    if [ "x$DRYRUN" == "x0" ] ; then
+        eval $runcmd
+    fi
 }
 
 function build_app {
@@ -59,14 +62,18 @@ function build_app {
     echo "Build APP=$appname, CASE=$appcase"
     local runcmd="make ${makeopts} TEST_CASE=${appcase} build"
     echo $runcmd
-    eval $runcmd
+    if [ "x$DRYRUN" == "x0" ] ; then
+        eval $runcmd
+    fi
 }
 
 function rm_app {
     local appname=${1:-hello_world_test}
     local appfile=${APPBINS}/$appname
     echo "Remove prebuilt $appfile"
-    rm -f $appfile
+    if [ "x$DRYRUN" == "x0" ] ; then
+        rm -f $appfile
+    fi
 }
 
 function run_app {
@@ -90,7 +97,9 @@ function run_app {
         runcmd="timeout -s 9 --preserve-status --foreground $TMOUT $runcmd"
     fi
     echo $runcmd
-    eval $runcmd
+    if [ "x$DRYRUN" == "x0" ] ; then
+        eval $runcmd
+    fi
 }
 
 function do_run {

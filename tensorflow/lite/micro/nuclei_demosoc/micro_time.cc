@@ -24,7 +24,7 @@ limitations under the License.
 namespace tflite {
 
 #if !defined(TF_LITE_USE_CTIME)
-int32_t ticks_per_second() { return 100e6 * SystemCoreClock; }
+int32_t ticks_per_second() { return SystemCoreClock; }
 
 int32_t GetCurrentTimeTicks() { return __get_rv_cycle(); }
 

@@ -1,11 +1,20 @@
 #!/bin/env bash
 DRYRUN=${DRYRUN:-0}
 LOGDIR=${LOGDIR:-gen}
+NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
 
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
 
 BUILDGENDIR=${SCRIPTDIR}/../tools/make/gen
+
+if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then
+    echo "Using NMSIS provided in $NUCLEI_SDK_NMSIS"
+    export NUCLEI_SDK_NMSIS=$NUCLEI_SDK_NMSIS
+    sleep 2
+fi
+
+LOGDIR=$(pwd)/$LOGDIR
 
 rm -rf $BUILDGENDIR/nuclei_demosoc*
 
@@ -38,3 +47,5 @@ do
     done
 done
 popd
+unset NUCLEI_SDK_NMSIS
+find $LOGDIR -name "run.log" | xargs grep "Pass/Total:"

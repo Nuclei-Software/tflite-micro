@@ -8,11 +8,12 @@ CLEAN=${CLEAN:-0}
 BUILD=${BUILD:-0}
 RUNON=${RUNON:-qemu}
 TMOUT=${TMOUT:-}
+NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
 
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
 
-APP=${1:-hello_world}
+APP=${1:-gesture_accelerometer_handler_test}
 CASE=${2:-add}
 
 TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
@@ -25,6 +26,12 @@ if [ "x$RUNON" == "xqemu" ] ; then
     makeopts="$makeopts SIMU=qemu"
 elif [ "x$RUNON" == "xxlspike" ] ; then
     makeopts="$makeopts SIMU=xlspike"
+fi
+
+if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then
+    echo "Using NMSIS provided in $NUCLEI_SDK_NMSIS"
+    export NUCLEI_SDK_NMSIS=$NUCLEI_SDK_NMSIS
+    sleep 2
 fi
 
 echo "Tensorflow root is $TF_ROOT"
@@ -47,7 +54,7 @@ function clean_app {
 }
 
 function build_app {
-    local appname=${1:-hello_world}
+    local appname=${1:-hello_world_test}
     local appcase=${2:-add}
     echo "Build APP=$appname, CASE=$appcase"
     local runcmd="make ${makeopts} TEST_CASE=${appcase} build"
@@ -56,14 +63,14 @@ function build_app {
 }
 
 function rm_app {
-    local appname=${1:-hello_world}
+    local appname=${1:-hello_world_test}
     local appfile=${APPBINS}/$appname
     echo "Remove prebuilt $appfile"
     rm -f $appfile
 }
 
 function run_app {
-    local appname=${1:-hello_world}
+    local appname=${1:-hello_world_test}
     local appfile=${APPBINS}/$appname
     echo "Run $appfile on $RUNON"
     local runcmd="echo Unable to run on $RUNON"
@@ -87,7 +94,7 @@ function run_app {
 }
 
 function do_run {
-    local appname=${1:-hello_world}
+    local appname=${1:-hello_world_test}
     local appcase=${2:-add}
     local appfile=${APPBINS}/$appname
 

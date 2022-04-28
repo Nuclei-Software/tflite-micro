@@ -83,6 +83,10 @@ make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qem
 make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=nx600fd ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn test_micro_speech_test
 ## The build elf can be found in tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/
 # for micro_speech_test, it should be tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/bin/micro_speech_test
+## 5. Build and run all test cases on qemu for CORE=n300f ARCH_EXT=p
+## Need to use 4M ilm linker script file LINKER_SCRIPT=tensorflow/lite/micro/nuclei_demosoc/gcc_ilm_4M.ld
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn LINKER_SCRIPT=tensorflow/lite/micro/nuclei_demosoc/gcc_ilm_4M.ld test
+## all the test cases will be ran on qemu, and show Pass Rate
 ~~~
 
 If you want to run on hardware, you can download this built elf using openocd and gdb, and run on
@@ -120,12 +124,48 @@ find gen -name "run.log" | xargs grep Pass
 
 This script will run all the application and record run log into log file.
 
+## Run all test cases for different CORE and ARCH_EXT
+
+In this folder, we provided a script to run test all the cases in qemu in one script.
+
+> Many cases required large memory, so we use 4M ilm linker script located in gcc_ilm_4M.ld
+
+~~~shell
+LOGDIR=gentest0.37 bash testall.sh
+# current version status on qemu
+find gentest0.37 -name "run.log" | xargs grep "Pass Rate"
+#gentest0.37/nx900f/p/run.log:Target nx900fp, Pass Rate(115/115)=100.00%
+#gentest0.37/nx900f/v/run.log:Target nx900fv, Pass Rate(111/115)=96.52%
+#gentest0.37/nx900f/pv/run.log:Target nx900fpv, Pass Rate(114/115)=99.13%
+#gentest0.37/nx900f/ref/run.log:Target nx900f, Pass Rate(115/115)=100.00%
+#gentest0.37/n900fd/p/run.log:Target n900fdp, Pass Rate(115/115)=100.00%
+#gentest0.37/n900fd/ref/run.log:Target n900fd, Pass Rate(115/115)=100.00%
+#gentest0.37/n600f/p/run.log:Target n600fp, Pass Rate(115/115)=100.00%
+#gentest0.37/n600f/ref/run.log:Target n600f, Pass Rate(115/115)=100.00%
+#gentest0.37/nx900fd/p/run.log:Target nx900fdp, Pass Rate(115/115)=100.00%
+#gentest0.37/nx900fd/v/run.log:Target nx900fdv, Pass Rate(111/115)=96.52%
+#gentest0.37/nx900fd/pv/run.log:Target nx900fdpv, Pass Rate(114/115)=99.13%
+#gentest0.37/nx900fd/ref/run.log:Target nx900fd, Pass Rate(115/115)=100.00%
+#gentest0.37/n205/p/run.log:Target n205p, Pass Rate(115/115)=100.00%
+#gentest0.37/n205/ref/run.log:Target n205, Pass Rate(115/115)=100.00%
+#gentest0.37/n300/p/run.log:Target n300p, Pass Rate(115/115)=100.00%
+#gentest0.37/n300/ref/run.log:Target n300, Pass Rate(115/115)=100.00%
+#gentest0.37/nx900/p/run.log:Target nx900p, Pass Rate(115/115)=100.00%
+#gentest0.37/nx900/ref/run.log:Target nx900, Pass Rate(115/115)=100.00%
+# current implemented nmsis-nn fully_connected_s8 api has some issue in it for vector optimized
+# please take care
+~~~
+
+This script will run all the test cases and record run log into log file.
+
 ## FAQs
 
 ### Default ilm/dlm size in demosoc is 64K/64K, need to change it to 512K to run these cases
 
 If you met issue like this: `section \`.text' will not fit in region \`ilm'`, this is caused by ilm size is not big enough to store the code, 64K is not enough to run this application, please use 512K, if you want to run on hardware,
 please make sure your hardware configured with 512K ILM/DLM.
+
+Some cases may need to change to bigger ilm/dlm to run on qemu, such as 4M.
 
 Now this patching step is done by build system, no need to do any more steps.
 

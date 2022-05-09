@@ -60,7 +60,7 @@ CLEAN=1 ./run.sh kernel_conv_test
 This `run.sh` is a simple script to make you can run on qemu easily, and you can also build tflite micro
 example by make command.
 
-~~~
+~~~shell
 pwd
 # make sure you are in the root directory of tflite-micro repo
 # CORE, ARCH_EXT, DOWNLOAD, SIMU are new introduced make variables supppored by TARGET=nuclei_demosoc
@@ -91,6 +91,23 @@ make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qem
 
 If you want to run on hardware, you can download this built elf using openocd and gdb, and run on
 hardware, and make sure the bitstream you programmed on hardware have at least 512K ILM and 512K DLM.
+
+About how to download prebuilt elf using openocd and gdb, you can follow nuclei-sdk user guide
+https://doc.nucleisys.com/nuclei_sdk/quickstart.html#debug-application , and when you enter to gdb command line,
+you can type following command to download program.
+
+~~~shell
+# reset cpu core and halt
+(gdb) monitor reset halt
+# load application
+(gdb) load /path/to/tflite-micro/prebuilt_elf
+# example command to load prebuilt elf
+# (gdb) load /home/lab/tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/bin/micro_speech_test
+# resume core execution
+(gdb) monitor resume
+# quit gdb
+(gdb) quit
+~~~
 
 ## Run all examples for different CORE and ARCH_EXT
 

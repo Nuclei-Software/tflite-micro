@@ -6,6 +6,14 @@ It is designed to be portable even to 'bare metal', so it follows the same desig
 
 ## How to quick explore it
 
+## Install third party requirements
+
+~~~shell
+sudo apt install -y python3-pip
+pip3 install Pillow
+pip3 install Wave
+~~~
+
 ## Setup
 
 Download Nuclei Studio 2022.04 from https://nucleisys.com/download.php and extract it.

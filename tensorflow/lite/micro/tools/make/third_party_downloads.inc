@@ -45,8 +45,8 @@ ZEPHYR_MD5 := "755622eb4812fde918a6382b65d50c3b"
 ETHOSU_URL := "https://git.mlplatform.org/ml/ethos-u/ethos-u-core-driver.git/snapshot/ethos-u-core-driver-24455eedb9e8939f8a28ca0101a6f2d171e1b2f9.tar.gz"
 ETHOSU_MD5 := "14b5712525d4af612d35217f0bc53fcc"
 
-NUCLEI_SDK_URL := "https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.7.zip"
-NUCLEI_SDK_MD5 := "777d2434e8fc78654e552e2968e9a8bb"
+NUCLEI_SDK_URL := "https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip"
+NUCLEI_SDK_MD5 := "ed9eb45b63ed39ba8395377af94eefd1"
 
 NUCLEI_STUDIO_URL := "https://nucleisys.com/upload/files/nucleistudio/NucleiStudio_IDE_202204-lin64.tgz"
 NUCLEI_STUDIO_MD5 := "4b26968b3372a25ac760b036c0da2b2d"

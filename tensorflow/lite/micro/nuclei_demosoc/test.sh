@@ -2,6 +2,7 @@
 TARGET=nuclei_demosoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 CORE=${CORE:-nx900fd}
+DOWNLOAD=${DOWNLOAD:-ilm}
 ARCH_EXT=${ARCH_EXT-p}
 DRYRUN=${DRYRUN:-0}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
@@ -14,7 +15,7 @@ TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
 LDSCRIPT=${LDSCRIPT-${SCRIPTDIR}/gcc_ilm_4M.ld}
 
-BUILDCMD="make -f tensorflow/lite/micro/tools/make/Makefile TARGET=${TARGET} OPTIMIZED_KERNEL_DIR=${OPTIMIZED} SIMU=qemu"
+BUILDCMD="make -f tensorflow/lite/micro/tools/make/Makefile TARGET=${TARGET} DOWNLOAD=${DOWNLOAD}  OPTIMIZED_KERNEL_DIR=${OPTIMIZED} SIMU=qemu"
 
 if [ "x$LDSCRIPT" != "x" ] && [ -f ${LDSCRIPT} ] ; then
     LDSCRIPT=$(readlink -f $LDSCRIPT)

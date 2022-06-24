@@ -3,6 +3,7 @@ TARGET=nuclei_demosoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 TARGET=nuclei_demosoc
 CORE=${CORE:-nx900fd}
+DOWNLOAD=${DOWNLOAD:-ilm}
 ARCH_EXT=${ARCH_EXT-pv}
 CLEAN=${CLEAN:-0}
 BUILD=${BUILD:-0}
@@ -21,7 +22,7 @@ TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
 APPBINS=tensorflow/lite/micro/tools/make/gen/${TARGET}_${CORE}${ARCH_EXT}_micro/bin
 
-makeopts="-f ${TF_ROOT}/tensorflow/lite/micro/tools/make/Makefile -j TARGET=${TARGET} CORE=${CORE} ARCH_EXT=${ARCH_EXT} OPTIMIZED_KERNEL_DIR=${OPTIMIZED}"
+makeopts="-f ${TF_ROOT}/tensorflow/lite/micro/tools/make/Makefile -j DOWNLOAD=${DOWNLOAD} TARGET=${TARGET} CORE=${CORE} ARCH_EXT=${ARCH_EXT} OPTIMIZED_KERNEL_DIR=${OPTIMIZED}"
 
 if [ "x$RUNON" == "xqemu" ] ; then
     makeopts="$makeopts SIMU=qemu"
@@ -88,7 +89,7 @@ function run_app {
             local qemucmd="qemu-system-riscv32"
         fi
         which ${qemucmd}
-        runcmd="${qemucmd} -M nuclei_n,download=ilm -cpu nuclei-${CORE},ext=${ARCH_EXT} \
+        runcmd="${qemucmd} -M nuclei_n,download=${DOWNLOAD} -cpu nuclei-${CORE},ext=${ARCH_EXT} \
             -nodefaults -nographic -serial stdio -kernel $appfile"
     elif [ "x$RUNON" == "xxlspike" ] ; then
         runcmd="xl_spike $appfile"

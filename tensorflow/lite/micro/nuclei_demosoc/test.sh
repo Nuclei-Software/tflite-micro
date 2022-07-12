@@ -6,6 +6,7 @@ DOWNLOAD=${DOWNLOAD:-ilm}
 ARCH_EXT=${ARCH_EXT-p}
 DRYRUN=${DRYRUN:-0}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
+TOOLCHAIN_ROOT=${TOOLCHAIN_ROOT-}
 
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
@@ -15,11 +16,16 @@ TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
 LDSCRIPT=${LDSCRIPT-${SCRIPTDIR}/gcc_ilm_4M.ld}
 
-BUILDCMD="make -f tensorflow/lite/micro/tools/make/Makefile TARGET=${TARGET} DOWNLOAD=${DOWNLOAD}  OPTIMIZED_KERNEL_DIR=${OPTIMIZED} SIMU=qemu"
+BUILDCMD="make -f tensorflow/lite/micro/tools/make/Makefile TARGET=${TARGET} DOWNLOAD=${DOWNLOAD} OPTIMIZED_KERNEL_DIR=${OPTIMIZED} SIMU=qemu"
 
 if [ "x$LDSCRIPT" != "x" ] && [ -f ${LDSCRIPT} ] ; then
     LDSCRIPT=$(readlink -f $LDSCRIPT)
     BUILDCMD="$BUILDCMD LINKER_SCRIPT=${LDSCRIPT} "
+fi
+
+if [ "x$TOOLCHAIN_ROOT" != "x" ] ; then
+    BUILDCMD="$BUILDCMD TARGET_TOOLCHAIN_ROOT=$TOOLCHAIN_ROOT"
+    echo "Using Toolchain provided in $TOOLCHAIN_ROOT"
 fi
 
 if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then

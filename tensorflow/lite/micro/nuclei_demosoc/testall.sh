@@ -4,6 +4,8 @@ TARGET=nuclei_demosoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 LOGDIR=${LOGDIR:-gentest}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
+TOOLCHAIN_ROOT=${TOOLCHAIN_ROOT-}
+CLEAN=${CLEAN:-0}
 
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
@@ -28,11 +30,26 @@ if [ "x$LDSCRIPT" != "x" ] && [ -f ${LDSCRIPT} ] ; then
     BUILDCMD="$BUILDCMD LINKER_SCRIPT=${LDSCRIPT} "
 fi
 
+if [ "x$TOOLCHAIN_ROOT" != "x" ] ; then
+    BUILDCMD="$BUILDCMD TARGET_TOOLCHAIN_ROOT=$TOOLCHAIN_ROOT"
+    echo "Using Toolchain provided in $TOOLCHAIN_ROOT"
+fi
+
 if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then
     echo "Using NMSIS provided in $NUCLEI_SDK_NMSIS"
     export NUCLEI_SDK_NMSIS=$NUCLEI_SDK_NMSIS
     sleep 2
 fi
+
+function clean_tflite {
+    local core=${1:-$CORE}
+    local archext=${2-$ARCH_EXT}
+    runcmd="$BUILDCMD CORE=$core ARCH_EXT=$archext -j clean"
+    echo $runcmd
+    if [ "x$DRYRUN" == "x0" ] ; then
+        eval $runcmd
+    fi
+}
 
 pushd $TF_ROOT
 for core in n205 n300 n600f n900fd nx900 nx900f nx900fd
@@ -50,6 +67,9 @@ do
             logdir="$LOGDIR/$core/ref"
         else
             logdir="$LOGDIR/$core/$archext"
+        fi
+        if [ "x$CLEAN" == "x1" ] ; then
+            clean_tflite $core $archext
         fi
         RUNCMD="$BUILDCMD CORE=$core ARCH_EXT=$archext -j test"
         echo $RUNCMD

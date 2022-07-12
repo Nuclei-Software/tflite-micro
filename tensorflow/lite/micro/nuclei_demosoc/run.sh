@@ -11,6 +11,7 @@ RUNON=${RUNON:-qemu}
 DRYRUN=${DRYRUN:-0}
 TMOUT=${TMOUT:-}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
+TOOLCHAIN_ROOT=${TOOLCHAIN_ROOT-}
 
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
@@ -28,6 +29,11 @@ if [ "x$RUNON" == "xqemu" ] ; then
     makeopts="$makeopts SIMU=qemu"
 elif [ "x$RUNON" == "xxlspike" ] ; then
     makeopts="$makeopts SIMU=xlspike"
+fi
+
+if [ "x$TOOLCHAIN_ROOT" != "x" ] ; then
+    makeopts="$makeopts TARGET_TOOLCHAIN_ROOT=$TOOLCHAIN_ROOT"
+    echo "Using Toolchain provided in $TOOLCHAIN_ROOT"
 fi
 
 if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then

@@ -34,11 +34,24 @@ if [ "x$NUCLEI_SDK_NMSIS" != "x" ] ; then
     sleep 2
 fi
 
+function clean_tflite {
+    local core=${1:-$CORE}
+    local archext=${2-$ARCH_EXT}
+    runcmd="$BUILDCMD CORE=$core ARCH_EXT=$archext -j clean"
+    echo $runcmd
+    if [ "x$DRYRUN" == "x0" ] ; then
+        eval $runcmd
+    fi
+}
+
 function run_test {
     local core=${1:-$CORE}
     local archext=${2-$ARCH_EXT}
 
     pushd $TF_ROOT
+    if [ "x$CLEAN" == "x1" ] ; then
+        clean_tflite $core $archext
+    fi
     echo "Run all tflite micro test cases for CORE=$core ARCH_EXT=$archext"
     RUNCMD="$BUILDCMD CORE=$core ARCH_EXT=$archext -j test"
     echo $RUNCMD

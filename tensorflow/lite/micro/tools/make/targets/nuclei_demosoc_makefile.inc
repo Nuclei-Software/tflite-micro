@@ -46,7 +46,7 @@ $(eval $(call add_third_party_download,$(NUCLEI_STUDIO_URL),$(NUCLEI_STUDIO_MD5)
 $(eval $(call add_third_party_download,$(NUCLEI_SDK_URL),$(NUCLEI_SDK_MD5),nuclei_sdk,patch_nuclei_sdk))
 
 TARGET_DEFAULT_TOOLCHAIN_ROOT := $(MAKEFILE_DIR)/downloads/nuclei_studio/NucleiStudio/toolchain/gcc/bin/
-TARGET_TOOLCHAIN_ROOT ?= $(TARGET_DEFAULT_TOOLCHAIN_ROOT)
+TARGET_TOOLCHAIN_ROOT := $(TARGET_DEFAULT_TOOLCHAIN_ROOT)
 
 NUCLEI_SDK_PATH := $(MAKEFILE_DIR)/downloads/nuclei_sdk
 NUCLEI_SDK_ROOT ?= $(NUCLEI_SDK_PATH)

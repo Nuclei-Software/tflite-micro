@@ -17,6 +17,31 @@ pip3 install Wave
 ## Setup
 
 > Please make sure the steps are executed.
+>
+> Make sure you have good network connection to download files in tensorflow/lite/micro/tools/make/third_party_downloads.inc
+
+### Setup Third Party Files
+
+Some third party files are also required to be downloaded, but it might fail due to bad connection. So we prepare the predownload
+folder `downloads` exclude only `nuclei_studio`, include `nuclei_sdk`.
+
+Please download `tflm_third_downloads.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcRHZytQu
+
+~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
+cd tensorflow/lite/micro/tools/make
+# make sure no downloads in this directory exist, if yes, backup it as need and then remove it
+mv downloads downloads_old
+unzip /path/to/tflm_third_downloads.zip
+ls -l downloads
+drwxr-xr-x 34 hqfang hqfang 4096 Feb  9 10:59 flatbuffers/
+drwxr-xr-x 15 hqfang hqfang 4096 Feb  9 11:06 gemmlowp/
+drwxr-xr-x  5 hqfang hqfang 4096 Feb  9 11:05 kissfft/
+drwxr-xr-x 11 hqfang hqfang 4096 Feb  9 11:06 nuclei_sdk/
+drwxr-xr-x 79 hqfang hqfang 4096 Feb  9 11:05 pigweed/
+drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
+~~~
 
 ### Setup Nuclei Studio for TFLM
 
@@ -37,6 +62,8 @@ ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
 ~~~
 
 ### Setup Nuclei SDK for TFLM
+
+> If you download and installed third_party_downloads.zip, then there is no need to install nuclei sdk.
 
 Manually download nuclei-sdk 0.3.8 from github release or wework share link:
 
@@ -61,6 +88,15 @@ If you have setup the environment, please check the it should contains files as 
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 cd tensorflow/lite/micro/tools/make/downloads/
+# list required third party files
+$ ls -l
+drwxr-xr-x 34 hqfang hqfang 4096 Feb  9 10:59 flatbuffers/
+drwxr-xr-x 15 hqfang hqfang 4096 Feb  9 11:06 gemmlowp/
+drwxr-xr-x  5 hqfang hqfang 4096 Feb  9 11:05 kissfft/
+drwxr-xr-x 11 hqfang hqfang 4096 Feb  9 11:06 nuclei_sdk/
+lrwxrwxrwx  1 hqfang hqfang   41 Feb  9 10:53 nuclei_studio -> /home/share/devtools/nucleistudio/2022.04/ # this is a soft link to existing nuclei studio
+drwxr-xr-x 79 hqfang hqfang 4096 Feb  9 11:05 pigweed/
+drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
 # check nuclei_sdk folder
 $ ls -l nuclei_sdk/
 total 100
@@ -292,6 +328,41 @@ the [Setup](#setup) steps to prepare environment.
 
 ### These files are also needed to be downloaded
 
-tensorflow/lite/micro/tools/make/downloads/flatbuffers already exists, skipping the download.
-tensorflow/lite/micro/tools/make/downloads/kissfft already exists, skipping the download.
-tensorflow/lite/micro/tools/make/downloads/pigweed already exists, skipping the download.
+TFLM build system need to download third party files, so it required good network connection, and the files
+are downloaded and extracted to `tensorflow/lite/micro/tools/make/downloads/`
+
+~~~shell
+flatbuffers/  gemmlowp/  kissfft/  nuclei_sdk/  pigweed/  ruy/ nuclei_studio/
+~~~
+
+### collect2: error: ld returned 1 exit status
+
+If you failed to compile application using above steps, and met issue as below
+
+~~~shell
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000080000000
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-isattyr.o): in function `.L0 ':
+isattyr.c:(.text._isatty_r+0x12): warning: _isatty is not implemented and will always fail
+collect2: error: ld returned 1 exit status
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-signalr.o): in function `.L0 ':
+signalr.c:(.text._kill_r+0x14): warning: _kill is not implemented and will always fail
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-lseekr.o): in function `.L0 ':
+lseekr.c:(.text._lseek_r+0x16): warning: _lseek is not implemented and will always fail
+make: *** [tensorflow/lite/micro/examples/micro_speech/Makefile.inc:230: tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx900fdpv_micro/bin/micro_features_generator_test] Error 1
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-readr.o): in function `.L0 ':
+readr.c:(.text._read_r+0x16): warning: _read is not implemented and will always fail
+/home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-writer.o): in function `.L0 ':
+writer.c:(.text._write_r+0x16): warning: _write is not implemented and will always fail
+~~~
+
+Then you clean the project first by adding `CLEAN=1`, such as steps below
+
+~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
+# cd to where this script located
+cd tensorflow/lite/micro/nuclei_demosoc
+# Assume CORE and ARCH_EXT environment variable are exported 
+# clean project first before run micro_speech_test provided in micro_speech example
+CLEAN=1 ./run.sh micro_speech_test
+~~~

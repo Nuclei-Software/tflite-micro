@@ -140,6 +140,7 @@ download_and_extract() {
     # Keep trying if we see the '56' error code.
     if [[ ( $CURL_RESULT -ne 56 ) || ( $i -eq $curl_retries ) ]]; then
       echo "Error $CURL_RESULT downloading '${url}'"
+      rm -rf "${dir}"
       exit 1
     fi
     sleep 2
@@ -149,6 +150,7 @@ download_and_extract() {
   DOWNLOADED_MD5=$(openssl dgst -md5 ${tempfile} | sed 's/.* //g')
   if [ ${expected_md5} != ${DOWNLOADED_MD5} ]; then
     echo "Checksum error for '${url}'. Expected ${expected_md5} but found ${DOWNLOADED_MD5}"
+    rm -rf "${dir}"
     exit 1
   fi
 
@@ -175,6 +177,7 @@ download_and_extract() {
     fi
   else
     echo "Error unsupported archive type. Failed to extract tool after download."
+    rm -rf "${dir}"
     exit 1
   fi
   rm -rf ${tempdir2} ${tempdir}

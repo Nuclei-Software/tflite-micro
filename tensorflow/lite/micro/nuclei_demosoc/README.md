@@ -289,3 +289,9 @@ Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs
 
 Then you need to manually delete the empty folder `tensorflow/lite/micro/tools/make/downloads/nuclei_sdk`, and you can follow
 the [Setup](#setup) steps to prepare environment.
+
+### These files are also needed to be downloaded
+
+tensorflow/lite/micro/tools/make/downloads/flatbuffers already exists, skipping the download.
+tensorflow/lite/micro/tools/make/downloads/kissfft already exists, skipping the download.
+tensorflow/lite/micro/tools/make/downloads/pigweed already exists, skipping the download.

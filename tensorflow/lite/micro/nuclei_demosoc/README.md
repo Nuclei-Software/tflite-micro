@@ -16,15 +16,88 @@ pip3 install Wave
 
 ## Setup
 
+> Please make sure the steps are executed.
+
+### Setup Nuclei Studio for TFLM
+
 Download Nuclei Studio 2022.04 from https://nucleisys.com/download.php and extract it.
 
 Setup up path for build system.
 
 ~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
 export NSTC=/path/to/NucleiStudio_IDE_202204/NucleiStudio/toolchain
 export PATH=$NSTC/qemu/bin:$NSTC/gcc/bin:$NSTC/openocd/bin:$PATH
 # if you don't want to download IDE again when build application, please create soft link
-ln -s /path/to/NucleiStudio_IDE_202204 /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_studio
+# strongly suggest do the following steps, since network might fail
+cd tensorflow/lite/micro/tools/make/downloads/
+# make sure no nuclei_studio in this directory exist, if yes, backup it as need and then remove it
+ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
+~~~
+
+### Setup Nuclei SDK for TFLM
+
+Manually download nuclei-sdk 0.3.8 from github release or wework share link:
+
+- github release: https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.3.8
+- wework share link: https://drive.weixin.qq.com/s?k=ABcAKgdSAFcbD9WkdD
+
+~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
+cd tensorflow/lite/micro/tools/make/downloads/
+# unzip the downloaded nuclei-sdk 0.3.8 release zip nuclei-sdk-0.3.8.zip
+# make sure no nuclei_sdk in this directory exist, if yes, backup it as need and then remove it
+unzip /path/to/nuclei-sdk-0.3.8.zip
+mv nuclei-sdk-0.3.8 nuclei_sdk
+~~~
+
+### Check the setup
+
+If you have setup the environment, please check the it should contains files as below.
+
+~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
+cd tensorflow/lite/micro/tools/make/downloads/
+# check nuclei_sdk folder
+$ ls -l nuclei_sdk/
+total 100
+drwxr-xr-x 6 hqfang hqfang  4096 Jun  2  2022 application/
+drwxr-xr-x 3 hqfang hqfang  4096 Jun  2  2022 Build/
+drwxr-xr-x 2 hqfang hqfang  4096 Jun  2  2022 Components/
+drwxr-xr-x 3 hqfang hqfang  4096 Jun  2  2022 doc/
+-rw-r--r-- 1 hqfang hqfang 11357 Jun  2  2022 LICENSE
+-rw-r--r-- 1 hqfang hqfang  2041 Jun  2  2022 Makefile
+drwxr-xr-x 6 hqfang hqfang  4096 Jun  2  2022 NMSIS/
+-rw-r--r-- 1 hqfang hqfang     7 Jun  2  2022 NMSIS_VERSION
+-rw-r--r-- 1 hqfang hqfang   454 Jun  2  2022 npk.yml
+drwxr-xr-x 5 hqfang hqfang  4096 Jun  2  2022 OS/
+-rw-r--r-- 1 hqfang hqfang   310 Jun  2  2022 package.json
+-rw-r--r-- 1 hqfang hqfang 12596 Jun  2  2022 README.md
+-rw-r--r-- 1 hqfang hqfang  6301 Jun  2  2022 SConscript
+-rw-r--r-- 1 hqfang hqfang   531 Jun  2  2022 setup.bat
+-rw-r--r-- 1 hqfang hqfang   717 Jun  2  2022 setup.ps1
+-rw-r--r-- 1 hqfang hqfang   563 Jun  2  2022 setup.sh
+drwxr-xr-x 4 hqfang hqfang  4096 Jun  2  2022 SoC/
+drwxr-xr-x 3 hqfang hqfang  4096 Jun  2  2022 test/
+drwxr-xr-x 3 hqfang hqfang  4096 Jun  2  2022 tools/
+$ ls -l nuclei_studio/NucleiStudio/
+total 9664
+-rw-r--r--  1 hqfang nucleisys  153887 Apr  1  2022 artifacts.xml
+drwxr-xr-x 11 hqfang nucleisys    4096 Apr  6  2022 configuration/
+drwxr-xr-x  2 hqfang nucleisys    4096 Sep 22  2020 dropins/
+drwxr-xr-x 86 hqfang nucleisys   12288 Apr  1  2022 features/
+drwxr-xr-x  7 hqfang nucleisys    4096 Aug 10  2021 jre/
+-rwxr-xr-x  1 hqfang nucleisys   61928 Sep  3  2020 NucleiStudio
+-rw-r--r--  1 hqfang nucleisys     530 Aug 10  2021 NucleiStudio.ini
+-rw-rw-r--  1 hqfang nucleisys 9504982 Apr  1  2022 Nuclei_Studio_User_Guide.pdf
+drwxr-xr-x  4 hqfang nucleisys    4096 Apr  6  2022 p2/
+drwxr-xr-x 13 hqfang nucleisys   69632 Apr  1  2022 plugins/
+drwxr-xr-x  2 hqfang nucleisys    4096 Sep 22  2020 readme/
+drwxrwxr-x  5 hqfang nucleisys    4096 Apr  1  2022 toolchain/
+-rw-rw-r--  1 hqfang nucleisys       0 Apr  1  2022 Ver.2022-04.txt
 ~~~
 
 ## Run
@@ -41,8 +114,10 @@ A script called `run.sh` is provided to quickly build and run on qemu.
 Example usage:
 
 ~~~shell
+# Make sure your are in tflm repo directory
+cd /path/to/tensorflow
 # cd to where this script located
-cd /path/to/tensorflow/tensorflow/lite/micro/nuclei_demosoc
+cd tensorflow/lite/micro/nuclei_demosoc
 ## current CORE is nx900fd, RISV-ARCH is rv64imafdc
 # select your CORE, for example, n205, n900fd
 ## Support CORE list can be found in SUPPORTED_CORES
@@ -197,3 +272,20 @@ Now this patching step is done by build system, no need to do any more steps.
 ~~~shell
 sed -i "s/64K/512K/g" /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_sdk/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_ilm.ld
 ~~~
+
+### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'
+
+If you don't have good network connection, you may met following issue.
+
+~~~shell
+tensorflow/lite/micro/tools/make/downloads/nuclei_sdk patch_nuclei_sdk
+downloading https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
++ [[ 35 -eq 0 ]]
++ [[ 35 -ne 56 ]]
++ echo 'Error 35 downloading '\''https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'\'''
+Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'
+~~~
+
+Then you need to manually delete the empty folder `tensorflow/lite/micro/tools/make/downloads/nuclei_sdk`, and you can follow
+the [Setup](#setup) steps to prepare environment.

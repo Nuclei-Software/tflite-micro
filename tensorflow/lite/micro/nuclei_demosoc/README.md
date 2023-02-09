@@ -52,12 +52,14 @@ Setup up path for build system.
 ~~~shell
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
+# Export PATH for nuclei gcc/qemu/openocd
 export NSTC=/path/to/NucleiStudio_IDE_202204/NucleiStudio/toolchain
 export PATH=$NSTC/qemu/bin:$NSTC/gcc/bin:$NSTC/openocd/bin:$PATH
 # if you don't want to download IDE again when build application, please create soft link
 # strongly suggest do the following steps, since network might fail
 cd tensorflow/lite/micro/tools/make/downloads/
 # make sure no nuclei_studio in this directory exist, if yes, backup it as need and then remove it
+# MUST do soft link here and remove existing nuclei_studio if exist
 ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
 ~~~
 
@@ -366,3 +368,11 @@ cd tensorflow/lite/micro/nuclei_demosoc
 # clean project first before run micro_speech_test provided in micro_speech example
 CLEAN=1 ./run.sh micro_speech_test
 ~~~
+
+### qemu-system-riscv64 missing library not able to execute
+
+Please execute `ldd $(which qemu-system-riscv64)` to check the missing libraries, and then
+you can try to search missing libraries using `apt search` and install it.
+
+Normally most will be solved by install `libglib2.0-0 libpixman-1-0`
+

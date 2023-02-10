@@ -86,6 +86,7 @@ PLATFORM_FLAGS = \
   -Wno-unused-parameter \
   -Wno-write-strings \
   -Wunused-function \
+  -Wno-unused-function \
   -fno-delete-null-pointer-checks \
   -fomit-frame-pointer
 

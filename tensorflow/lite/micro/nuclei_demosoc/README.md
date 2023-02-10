@@ -66,6 +66,9 @@ ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
 ### Setup Nuclei SDK for TFLM
 
 > If you download and installed third_party_downloads.zip, then there is no need to install nuclei sdk.
+>
+> If you are porting this TFLM to your SoC, please take care to use the same version of NMSIS DSP/NN used in
+> nuclei sdk 0.3.8 version which is currently supported in this version of TFLM.
 
 Manually download nuclei-sdk 0.3.8 from github release or wework share link:
 
@@ -376,3 +379,21 @@ you can try to search missing libraries using `apt search` and install it.
 
 Normally most will be solved by install `libglib2.0-0 libpixman-1-0`
 
+### declared 'static' but never defined [-Werror=unused-function]
+
+Need to add extra compiler option `-Wno-unused-function` in **PLATFORM_FLAGS** of
+`tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_makefile.inc`.
+
+### svdf.cc:272:7: error: cannot convert 'int16_t*' {aka 'short int*'} to 'q7_t*' {aka 'signed char*'}
+
+If you are using NMSIS DSP/NN 1.1.0, you may face issue below.
+
+~~~shell
+tensorflow/lite/micro/kernels/nmsis_nn/svdf.cc:272:7: error: cannot convert 'int16_t*' {aka 'short int*'} to 'q7_t*' {aka 'signed char*'}
+  272 |       (int16_t*)tflite::micro::GetTensorData<int16_t>(activation_state_tensor),
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |       |
+      |       int16_t* {aka short int*}
+~~~
+
+The simple solution is use the NMSIS DSP/NN 1.0.4 we used in Nuclei SDK 0.3.8.

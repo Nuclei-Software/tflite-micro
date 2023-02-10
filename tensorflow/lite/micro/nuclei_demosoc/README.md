@@ -397,3 +397,18 @@ tensorflow/lite/micro/kernels/nmsis_nn/svdf.cc:272:7: error: cannot convert 'int
 ~~~
 
 The simple solution is use the NMSIS DSP/NN 1.0.4 we used in Nuclei SDK 0.3.8.
+
+### Simple steps about how to port to Nuclei Subsystem SDK
+
+1. Make sure the NMSIS version used in this Nuclei Subsystem SDK is 1.0.4, if not, please change to this version,
+   just replace NMSIS from nuclei sdk 0.3.8
+2. Adapt `tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_makefile.inc` line 112 to 149
+3. If you are using Nuclei RISC-V CPU, please select correct CORE according to nuclei_demosoc_corearchabi.inc,
+   for example, if your RISC-V ARCH is rv32imafdc, and CPU is 300 series, then select CORE=n300fd,
+   if you have extra p/v extension, such as p, then ARCH_EXT should be ``p``
+4. Then **DOWNLOAD** should set to correct mode to match the linker script file you want to use
+5. Most of the tflm examples require a lot of ram and rom, so some examples may link fail if you don't have
+   enough memory.
+6. Test the build via `CLEAN=1 CORE=n300fd ARCH_EXT=p NUCLEI_SDK_ROOT=/path/to/your_subsystem_sdk ./run.sh micro_speech_test`
+7. Since the porting example not able to run on Nuclei QEMU, so you need to download the generated elf on your hardware
+   and check the real output.

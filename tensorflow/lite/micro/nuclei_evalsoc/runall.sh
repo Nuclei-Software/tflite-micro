@@ -16,7 +16,7 @@ fi
 
 LOGDIR=$(pwd)/$LOGDIR
 
-rm -rf $BUILDGENDIR/nuclei_demosoc*
+rm -rf $BUILDGENDIR/nuclei_evalsoc*
 
 mkdir -p $LOGDIR
 

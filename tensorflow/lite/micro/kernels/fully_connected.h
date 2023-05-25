@@ -90,7 +90,7 @@ inline TfLiteRegistration_V1 Register_FULLY_CONNECTED_INT8() {
 
 #endif
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 // Returns a TfLiteRegistration_V1 struct for kernel variant that only supports
 // int16.
 TfLiteRegistration_V1 Register_FULLY_CONNECTED_INT16();

@@ -63,7 +63,7 @@ void EvalMulFloatReference(TfLiteContext* context, TfLiteNode* node,
 // Generic must define registration function.
 TfLiteRegistration_V1 Register_MUL();
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 TfLiteRegistration_V1 Register_MUL_INT8();
 #else
 // Fallback registration

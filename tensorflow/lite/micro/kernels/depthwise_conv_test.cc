@@ -330,7 +330,6 @@ TF_LITE_MICRO_TEST(TestQuantizedPerChannelDepthMultiplier1Relu6) {
       output_scale, output_zero_point, &conv_params);
 }
 
-#if !(defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(SimpleTestDilatedQuantizedPerChannel) {
   const int input_elements = 48;
   int input_shape[] = {4, 1, 4, 6, 2};
@@ -376,7 +375,6 @@ TF_LITE_MICRO_TEST(SimpleTestDilatedQuantizedPerChannel) {
       bias_quantized, output_shape, golden, golden_quantized, output_data,
       output_scale, output_zero_point, &conv_params);
 }
-#endif
 
 TF_LITE_MICRO_TEST(TestQuantizedPerChannelCompareWithFloat) {
   int input_dims[] = {4, 1, 2, 3, 2};

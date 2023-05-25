@@ -62,7 +62,7 @@ TfLiteStatus AddPrepare(TfLiteContext* context, TfLiteNode* node);
 // Generic must define registration function.
 TfLiteRegistration_V1 Register_ADD();
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 TfLiteRegistration_V1 Register_ADD_INT8();
 
 TfLiteRegistration_V1 Register_ADD_INT16();

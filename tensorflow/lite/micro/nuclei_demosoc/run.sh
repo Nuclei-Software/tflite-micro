@@ -16,7 +16,7 @@ TOOLCHAIN_ROOT=${TOOLCHAIN_ROOT-}
 SCRIPTDIR=$(dirname $(readlink -f $BASH_SOURCE))
 SCRIPTDIR=$(readlink -f $SCRIPTDIR)
 
-APP=${1:-gesture_accelerometer_handler_test}
+APP=${1:-hello_world}
 CASE=${2:-add}
 
 TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
@@ -64,7 +64,7 @@ function clean_app {
 }
 
 function build_app {
-    local appname=${1:-hello_world_test}
+    local appname=${1:-hello_world}
     local appcase=${2:-add}
     echo "Build APP=$appname, CASE=$appcase"
     local runcmd="make ${makeopts} TEST_CASE=${appcase} build"
@@ -75,7 +75,7 @@ function build_app {
 }
 
 function rm_app {
-    local appname=${1:-hello_world_test}
+    local appname=${1:-hello_world}
     local appfile=${APPBINS}/$appname
     echo "Remove prebuilt $appfile"
     if [ "x$DRYRUN" == "x0" ] ; then
@@ -84,7 +84,7 @@ function rm_app {
 }
 
 function run_app {
-    local appname=${1:-hello_world_test}
+    local appname=${1:-hello_world}
     local appfile=${APPBINS}/$appname
     echo "Run $appfile on $RUNON"
     local runcmd="echo Unable to run on $RUNON"
@@ -110,7 +110,7 @@ function run_app {
 }
 
 function do_run {
-    local appname=${1:-hello_world_test}
+    local appname=${1:-hello_world}
     local appcase=${2:-add}
     local appfile=${APPBINS}/$appname
 

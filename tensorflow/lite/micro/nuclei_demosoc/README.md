@@ -25,7 +25,7 @@ pip3 install Wave
 Some third party files are also required to be downloaded, but it might fail due to bad connection. So we prepare the predownload
 folder `downloads` exclude only `nuclei_studio`, include `nuclei_sdk`.
 
-Please download `tflm_third_downloads.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFc0Cd4JD5
+Please download `tflm_third_downloads.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcy0ezTG0
 
 ~~~shell
 # Make sure your are in tflm repo directory
@@ -45,7 +45,7 @@ drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
 
 ### Setup Nuclei Studio for TFLM
 
-Download Nuclei Studio 2022.04 from https://nucleisys.com/download.php and extract it.
+Download Nuclei Studio 2022.12 from https://nucleisys.com/download.php and extract it.
 
 Setup up path for build system.
 
@@ -53,14 +53,14 @@ Setup up path for build system.
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 # Export PATH for nuclei gcc/qemu/openocd
-export NSTC=/path/to/NucleiStudio_IDE_202204/NucleiStudio/toolchain
+export NSTC=/path/to/NucleiStudio_IDE_202212/NucleiStudio/toolchain
 export PATH=$NSTC/qemu/bin:$NSTC/gcc/bin:$NSTC/openocd/bin:$PATH
 # if you don't want to download IDE again when build application, please create soft link
 # strongly suggest do the following steps, since network might fail
 cd tensorflow/lite/micro/tools/make/downloads/
 # make sure no nuclei_studio in this directory exist, if yes, backup it as need and then remove it
 # MUST do soft link here and remove existing nuclei_studio if exist
-ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
+ln -s /path/to/NucleiStudio_IDE_202212 nuclei_studio
 ~~~
 
 ### Setup Nuclei SDK for TFLM
@@ -68,21 +68,21 @@ ln -s /path/to/NucleiStudio_IDE_202204 nuclei_studio
 > If you download and installed third_party_downloads.zip, then there is no need to install nuclei sdk.
 >
 > If you are porting this TFLM to your SoC, please take care to use the same version of NMSIS DSP/NN used in
-> nuclei sdk 0.3.8 version which is currently supported in this version of TFLM.
+> nuclei sdk 0.4.1 version which is currently supported in this version of TFLM.
 
-Manually download nuclei-sdk 0.3.8 from github release or wework share link:
+Manually download nuclei-sdk 0.4.1 from github release or wework share link:
 
-- github release: https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.3.8
-- wework share link: https://drive.weixin.qq.com/s?k=ABcAKgdSAFcbD9WkdD
+- github release: https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.4.1
+- wework share link: https://drive.weixin.qq.com/s?k=ABcAKgdSAFcSzQaiNJ
 
 ~~~shell
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 cd tensorflow/lite/micro/tools/make/downloads/
-# unzip the downloaded nuclei-sdk 0.3.8 release zip nuclei-sdk-0.3.8.zip
+# unzip the downloaded nuclei-sdk 0.4.1 release zip nuclei-sdk-0.4.1.zip
 # make sure no nuclei_sdk in this directory exist, if yes, backup it as need and then remove it
-unzip /path/to/nuclei-sdk-0.3.8.zip
-mv nuclei-sdk-0.3.8 nuclei_sdk
+unzip /path/to/nuclei-sdk-0.4.1.zip
+mv nuclei-sdk-0.4.1 nuclei_sdk
 ~~~
 
 ### Check the setup
@@ -99,7 +99,7 @@ drwxr-xr-x 34 hqfang hqfang 4096 Feb  9 10:59 flatbuffers/
 drwxr-xr-x 15 hqfang hqfang 4096 Feb  9 11:06 gemmlowp/
 drwxr-xr-x  5 hqfang hqfang 4096 Feb  9 11:05 kissfft/
 drwxr-xr-x 11 hqfang hqfang 4096 Feb  9 11:06 nuclei_sdk/
-lrwxrwxrwx  1 hqfang hqfang   41 Feb  9 10:53 nuclei_studio -> /home/share/devtools/nucleistudio/2022.04/ # this is a soft link to existing nuclei studio
+lrwxrwxrwx  1 hqfang hqfang   41 Feb  9 10:53 nuclei_studio -> /home/share/devtools/nucleistudio/2022.12/ # this is a soft link to existing nuclei studio
 drwxr-xr-x 79 hqfang hqfang 4096 Feb  9 11:05 pigweed/
 drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
 # check nuclei_sdk folder
@@ -138,7 +138,7 @@ drwxr-xr-x  4 hqfang nucleisys    4096 Apr  6  2022 p2/
 drwxr-xr-x 13 hqfang nucleisys   69632 Apr  1  2022 plugins/
 drwxr-xr-x  2 hqfang nucleisys    4096 Sep 22  2020 readme/
 drwxrwxr-x  5 hqfang nucleisys    4096 Apr  1  2022 toolchain/
--rw-rw-r--  1 hqfang nucleisys       0 Apr  1  2022 Ver.2022-04.txt
+-rw-rw-r--  1 hqfang nucleisys       0 Apr  1  2022 Ver.2022-12.txt
 ~~~
 
 ## Run
@@ -149,7 +149,7 @@ A script called `run.sh` is provided to quickly build and run on qemu.
 ./run.sh <example_name> [test_case]
 ~~~
 
-* example_name: required argument, stand for the example name to be run. such as `hello_world`, `hello_world_test`, `magic_wand` and etc.
+* example_name: required argument, stand for the example name to be run. such as `hello_world`, `micro_speech_test`, `person_detection` and etc.
   Examples can be found in *tensorflow/lite/micro/examples*
 
 Example usage:
@@ -241,26 +241,24 @@ In this folder, we provided a script to run all examples in one script.
 bash runall.sh
 # current version status on qemu
 find gen -name "run.log" | xargs grep Pass
-#gen/nx900f/p/run.log:nx900fp Pass/Total: 24/24=100.000%
-#gen/nx900f/v/run.log:nx900fv Pass/Total: 21/24=87.500%
-#gen/nx900f/pv/run.log:nx900fpv Pass/Total: 24/24=100.000%
-#gen/nx900f/ref/run.log:nx900f Pass/Total: 24/24=100.000%
-#gen/n900fd/p/run.log:n900fdp Pass/Total: 24/24=100.000%
-#gen/n900fd/ref/run.log:n900fd Pass/Total: 24/24=100.000%
-#gen/n600f/p/run.log:n600fp Pass/Total: 24/24=100.000%
-#gen/n600f/ref/run.log:n600f Pass/Total: 24/24=100.000%
-#gen/nx900fd/p/run.log:nx900fdp Pass/Total: 24/24=100.000%
-#gen/nx900fd/v/run.log:nx900fdv Pass/Total: 21/24=87.500%
-#gen/nx900fd/pv/run.log:nx900fdpv Pass/Total: 24/24=100.000%
-#gen/nx900fd/ref/run.log:nx900fd Pass/Total: 24/24=100.000%
-#gen/n205/p/run.log:n205p Pass/Total: 24/24=100.000%
-#gen/n205/ref/run.log:n205 Pass/Total: 24/24=100.000%
-#gen/n300/p/run.log:n300p Pass/Total: 24/24=100.000%
-#gen/n300/ref/run.log:n300 Pass/Total: 24/24=100.000%
-#gen/nx900/p/run.log:nx900p Pass/Total: 24/24=100.000%
-#gen/nx900/ref/run.log:nx900 Pass/Total: 24/24=100.000%
-# current implemented nmsis-nn fully_connected_s8 api has some issue in it for vector optimized
-# please take care
+gen/n205/ref/run.log:n205 Pass/Total: 17/17=100.000%
+gen/n205/p/run.log:n205p Pass/Total: 17/17=100.000%
+gen/n300/ref/run.log:n300 Pass/Total: 17/17=100.000%
+gen/n300/p/run.log:n300p Pass/Total: 17/17=100.000%
+gen/n600f/ref/run.log:n600f Pass/Total: 17/17=100.000%
+gen/n600f/p/run.log:n600fp Pass/Total: 17/17=100.000%
+gen/n900fd/ref/run.log:n900fd Pass/Total: 17/17=100.000%
+gen/n900fd/p/run.log:n900fdp Pass/Total: 17/17=100.000%
+gen/nx900/ref/run.log:nx900 Pass/Total: 17/17=100.000%
+gen/nx900/p/run.log:nx900p Pass/Total: 17/17=100.000%
+gen/nx900f/ref/run.log:nx900f Pass/Total: 17/17=100.000%
+gen/nx900f/p/run.log:nx900fp Pass/Total: 17/17=100.000%
+gen/nx900f/v/run.log:nx900fv Pass/Total: 17/17=100.000%
+gen/nx900f/pv/run.log:nx900fpv Pass/Total: 17/17=100.000%
+gen/nx900fd/ref/run.log:nx900fd Pass/Total: 17/17=100.000%
+gen/nx900fd/p/run.log:nx900fdp Pass/Total: 17/17=100.000%
+gen/nx900fd/v/run.log:nx900fdv Pass/Total: 17/17=100.000%
+gen/nx900fd/pv/run.log:nx900fdpv Pass/Total: 17/17=100.000%
 ~~~
 
 This script will run all the application and record run log into log file.
@@ -272,29 +270,27 @@ In this folder, we provided a script to run test all the cases in qemu in one sc
 > Many cases required large memory, so we use 4M ilm linker script located in gcc_ilm_4M.ld
 
 ~~~shell
-LOGDIR=gentest0.37 bash testall.sh
+LOGDIR=gentest bash testall.sh
 # current version status on qemu
-find gentest0.37 -name "run.log" | xargs grep "Pass Rate"
-#gentest0.37/nx900f/p/run.log:Target nx900fp, Pass Rate(115/115)=100.00%
-#gentest0.37/nx900f/v/run.log:Target nx900fv, Pass Rate(111/115)=96.52%
-#gentest0.37/nx900f/pv/run.log:Target nx900fpv, Pass Rate(114/115)=99.13%
-#gentest0.37/nx900f/ref/run.log:Target nx900f, Pass Rate(115/115)=100.00%
-#gentest0.37/n900fd/p/run.log:Target n900fdp, Pass Rate(115/115)=100.00%
-#gentest0.37/n900fd/ref/run.log:Target n900fd, Pass Rate(115/115)=100.00%
-#gentest0.37/n600f/p/run.log:Target n600fp, Pass Rate(115/115)=100.00%
-#gentest0.37/n600f/ref/run.log:Target n600f, Pass Rate(115/115)=100.00%
-#gentest0.37/nx900fd/p/run.log:Target nx900fdp, Pass Rate(115/115)=100.00%
-#gentest0.37/nx900fd/v/run.log:Target nx900fdv, Pass Rate(111/115)=96.52%
-#gentest0.37/nx900fd/pv/run.log:Target nx900fdpv, Pass Rate(114/115)=99.13%
-#gentest0.37/nx900fd/ref/run.log:Target nx900fd, Pass Rate(115/115)=100.00%
-#gentest0.37/n205/p/run.log:Target n205p, Pass Rate(115/115)=100.00%
-#gentest0.37/n205/ref/run.log:Target n205, Pass Rate(115/115)=100.00%
-#gentest0.37/n300/p/run.log:Target n300p, Pass Rate(115/115)=100.00%
-#gentest0.37/n300/ref/run.log:Target n300, Pass Rate(115/115)=100.00%
-#gentest0.37/nx900/p/run.log:Target nx900p, Pass Rate(115/115)=100.00%
-#gentest0.37/nx900/ref/run.log:Target nx900, Pass Rate(115/115)=100.00%
-# current implemented nmsis-nn fully_connected_s8 api has some issue in it for vector optimized
-# please take care
+find gentest -name "run.log" | xargs grep "Pass Rate"
+gentest/n205/ref/run.log:Target n205, Pass Rate(117/117)=100.00%
+gentest/n205/p/run.log:Target n205p, Pass Rate(117/117)=100.00%
+gentest/n300/ref/run.log:Target n300, Pass Rate(117/117)=100.00%
+gentest/n300/p/run.log:Target n300p, Pass Rate(117/117)=100.00%
+gentest/n600f/ref/run.log:Target n600f, Pass Rate(117/117)=100.00%
+gentest/n600f/p/run.log:Target n600fp, Pass Rate(117/117)=100.00%
+gentest/n900fd/ref/run.log:Target n900fd, Pass Rate(117/117)=100.00%
+gentest/n900fd/p/run.log:Target n900fdp, Pass Rate(117/117)=100.00%
+gentest/nx900/ref/run.log:Target nx900, Pass Rate(117/117)=100.00%
+gentest/nx900/p/run.log:Target nx900p, Pass Rate(117/117)=100.00%
+gentest/nx900f/ref/run.log:Target nx900f, Pass Rate(117/117)=100.00%
+gentest/nx900f/p/run.log:Target nx900fp, Pass Rate(117/117)=100.00%
+gentest/nx900f/v/run.log:Target nx900fv, Pass Rate(117/117)=100.00%
+gentest/nx900f/pv/run.log:Target nx900fpv, Pass Rate(117/117)=100.00%
+gentest/nx900fd/ref/run.log:Target nx900fd, Pass Rate(117/117)=100.00%
+gentest/nx900fd/p/run.log:Target nx900fdp, Pass Rate(117/117)=100.00%
+gentest/nx900fd/v/run.log:Target nx900fdv, Pass Rate(117/117)=100.00%
+gentest/nx900fd/pv/run.log:Target nx900fdpv, Pass Rate(117/117)=100.00%
 ~~~
 
 This script will run all the test cases and record run log into log file.
@@ -314,18 +310,18 @@ Now this patching step is done by build system, no need to do any more steps.
 sed -i "s/64K/512K/g" /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_sdk/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_ilm.ld
 ~~~
 
-### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'
+### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip'
 
 If you don't have good network connection, you may met following issue.
 
 ~~~shell
 tensorflow/lite/micro/tools/make/downloads/nuclei_sdk patch_nuclei_sdk
-downloading https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip
+downloading https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip
 curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
 + [[ 35 -eq 0 ]]
 + [[ 35 -ne 56 ]]
-+ echo 'Error 35 downloading '\''https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'\'''
-Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.8.zip'
++ echo 'Error 35 downloading '\''https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip'\'''
+Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip'
 ~~~
 
 Then you need to manually delete the empty folder `tensorflow/lite/micro/tools/make/downloads/nuclei_sdk`, and you can follow
@@ -396,12 +392,12 @@ tensorflow/lite/micro/kernels/nmsis_nn/svdf.cc:272:7: error: cannot convert 'int
       |       int16_t* {aka short int*}
 ~~~
 
-The simple solution is use the NMSIS DSP/NN 1.0.4 we used in Nuclei SDK 0.3.8.
+The simple solution is use the NMSIS DSP/NN 1.1.1 we used in Nuclei SDK 0.4.1.
 
 ### Simple steps about how to port to Nuclei Subsystem SDK
 
-1. Make sure the NMSIS version used in this Nuclei Subsystem SDK is 1.0.4, if not, please change to this version,
-   just replace NMSIS from nuclei sdk 0.3.8
+1. Make sure the NMSIS version is v1.1.1 (Corresponding nuclei SDK version is v0.4.1), if not, please change to this version,
+   just replace NMSIS from nuclei sdk 0.4.1
 2. Adapt `tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_makefile.inc` line 112 to 149
 3. If you are using Nuclei RISC-V CPU, please select correct CORE according to nuclei_demosoc_corearchabi.inc,
    for example, if your RISC-V ARCH is rv32imafdc, and CPU is 300 series, then select CORE=n300fd,

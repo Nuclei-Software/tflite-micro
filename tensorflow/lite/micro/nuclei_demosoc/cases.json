@@ -1,8 +1,30 @@
 {
-    "hello_world" : ["hello_world", "hello_world_test", "output_handler_test"],
-    "magic_wand": ["magic_wand_test", "gesture_predictor_test", "gesture_output_handler_test", "gesture_accelerometer_handler_test"],
-    "micro_speech": ["micro_features_generator_test", "micro_speech_test", "audio_provider_test", "audio_provider_mock_test", "feature_provider_mock_test", 
-    "recognize_commands_test", "command_responder_test"],
-    "person_detection": ["image_provider_test", "detection_responder_test"],
-    "kernel_tests": ["kernel_conv_test", "kernel_add_test", "kernel_depthwise_conv_test", "kernel_fully_connected_test", "kernel_mul_test", "kernel_pooling_test", "kernel_softmax_test", "kernel_svdf_test"]
+  "hello_world": [
+    "hello_world",
+    "evaluate_cc_test"
+  ],
+
+  "micro_speech": [
+    "micro_speech_test",
+    "micro_speech_mock",
+    "micro_features_generator_test",
+    "audio_provider_test",
+    "audio_provider_mock_test",
+    "command_responder_test",
+    "feature_provider_test",
+    "feature_provider_mock_test",
+    "recognize_commands_test",
+    "simple_features_generator_test"
+  ],
+
+  "network_tester": [
+    "network_tester_test"
+  ],
+
+  "person_detection": [
+    "person_detection",
+    "person_detection_test",
+    "detection_responder_test",
+    "image_provider_test"
+  ]
 }

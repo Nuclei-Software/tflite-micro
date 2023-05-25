@@ -113,8 +113,6 @@ CCFLAGS += $(PLATFORM_FLAGS)
 
 INCLUDES += \
   -I$(NUCLEI_SDK_NMSIS)/Core/Include \
-  -I$(NUCLEI_SDK_NMSIS)/DSP/Include \
-  -I$(NUCLEI_SDK_NMSIS)/DSP/Include/dsp \
   -I$(NUCLEI_SDK_NMSIS)/NN/Include \
   -I$(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Include \
   -I$(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Include
@@ -141,11 +139,10 @@ LDFLAGS += \
  --specs=nosys.specs \
  -Wl,--gc-sections -Wl,--check-sections \
  -u _isatty -u _write -u _sbrk -u _read -u _close -u _fstat -u _lseek -u _getpid -u _kill \
- -L$(NUCLEI_SDK_NMSIS)/Library/DSP/GCC \
  -L$(NUCLEI_SDK_NMSIS)/Library/NN/GCC
 
-$(info Use and link with NMSIS DSP/NN library, ARCH=$(RISCV_ARCH))
-LDLIBS = -lnmsis_nn_$(RISCV_ARCH) -lnmsis_dsp_$(RISCV_ARCH)
+$(info Use and link with NMSIS NN library, ARCH=$(RISCV_ARCH))
+LDLIBS = -lnmsis_nn_$(RISCV_ARCH)
 
 LDFLAGS += $(LDLIBS)
 

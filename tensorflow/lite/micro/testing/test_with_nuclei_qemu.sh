@@ -29,7 +29,7 @@ ARCH_EXT=${4-pv}
 RUNON=${5:-qemu}
 DRYRUN=${DRYRUN:-0}
 TMOUT=${TMOUT:-}
-LOGDIR=${LOGDIR:-/tmp/nuclei_demosoc}
+LOGDIR=${LOGDIR:-/tmp/nuclei_evalsoc}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TFLM_ROOT_DIR=${SCRIPT_DIR}/..
@@ -109,7 +109,7 @@ function run_for_target {
     do
         arrs=(${binary//\// })
         corearch=${arrs[-3]}
-        corearch=${corearch//nuclei_demosoc_/}
+        corearch=${corearch//nuclei_evalsoc_/}
         corearch=${corearch//nuclei_evalsoc_/}
         corearch=${corearch//_micro/}
         break

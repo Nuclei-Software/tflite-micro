@@ -11,7 +11,7 @@ uc = $(shell echo $(1) | tr a-z A-Z)
 lc = $(shell echo $(1) | tr A-Z a-z)
 check_item_exist = $(strip $(if $(filter 1, $(words $(1))),$(filter $(1), $(sort $(2))),))
 
-include $(MAKEFILE_DIR)/targets/nuclei_demosoc_corearchabi.inc
+include $(MAKEFILE_DIR)/targets/nuclei_evalsoc_corearchabi.inc
 
 CORE_UPPER := $(call uc, $(CORE))
 CORE_ARCH_ABI := $($(CORE_UPPER)_CORE_ARCH_ABI)
@@ -20,7 +20,7 @@ $(error Here we only support these cores: $(SUPPORTED_CORES))
 endif
 # Check whether CORE_ARCH_ABI is presented for CORE
 ifneq ($(words $(wordlist 1, 2, $(CORE_ARCH_ABI))), 2)
-$(error No correct CORE_ARCH_ABI setting for CORE=$(CORE) found in $(realpath $(MAKEFILE_DIR)/targets/nuclei_demosoc_corearchabi.inc)
+$(error No correct CORE_ARCH_ABI setting for CORE=$(CORE) found in $(realpath $(MAKEFILE_DIR)/targets/nuclei_evalsoc_corearchabi.inc)
 endif
 
 # Handle Nuclei RISC-V ARCH/ABI/CMODEL/TUNE
@@ -114,22 +114,22 @@ CCFLAGS += $(PLATFORM_FLAGS)
 INCLUDES += \
   -I$(NUCLEI_SDK_NMSIS)/Core/Include \
   -I$(NUCLEI_SDK_NMSIS)/NN/Include \
-  -I$(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Include \
-  -I$(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Include
+  -I$(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Include \
+  -I$(NUCLEI_SDK_ROOT)/SoC/evalsoc/Common/Include
 
 
 MICROLITE_CC_SRCS += \
-  $(wildcard tensorflow/lite/micro/nuclei_demosoc/*.cc)
+  $(wildcard tensorflow/lite/micro/nuclei_evalsoc/*.cc)
 
 NUCLEI_SDK_SRCS := \
-$(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Source/Drivers/*.c) \
-$(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Source/GCC/*.S) \
-$(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Source/Stubs/newlib/*.c) \
-$(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Common/Source/*.c) \
-$(wildcard $(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Source/*.c)
+$(wildcard $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Common/Source/Drivers/*.c) \
+$(wildcard $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Common/Source/GCC/*.S) \
+$(wildcard $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Common/Source/Stubs/newlib/*.c) \
+$(wildcard $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Common/Source/*.c) \
+$(wildcard $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Source/*.c)
 
 THIRD_PARTY_CC_SRCS += $(NUCLEI_SDK_SRCS)
-LINKER_SCRIPT ?= $(NUCLEI_SDK_ROOT)/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_$(DOWNLOAD).ld
+LINKER_SCRIPT ?= $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/gcc_evalsoc_$(DOWNLOAD).ld
 
 LDFLAGS += \
  -T $(LINKER_SCRIPT) \

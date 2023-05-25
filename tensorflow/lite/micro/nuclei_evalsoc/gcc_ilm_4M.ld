@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 /******************************************************************************
- * @file     gcc_demosoc_ilm.ld
+ * @file     gcc_evalsoc_ilm.ld
  * @brief    GNU Linker Script for Nuclei N/NX based device in ilm Download Mode
  * @version  V1.0.0
  * @date     17. Dec 2019

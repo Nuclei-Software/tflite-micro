@@ -28,10 +28,10 @@ set -e
 patch_nuclei_sdk() {
   local nsdk_dir="${1}"
 
-  local nsdk_demosoc_lds=${1}/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_ilm.ld
+  local nsdk_evalsoc_lds=${1}/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/gcc_evalsoc_ilm.ld
 
-  echo "Patching Nuclei SDK, change demosoc ilm link script file, ilm/dlm size changed from 64K to 512K"
-  sed -i "s/64K/512K/g" $nsdk_demosoc_lds
+  echo "Patching Nuclei SDK, change evalsoc ilm link script file, ilm/dlm size changed from 64K to 512K"
+  sed -i "s/64K/512K/g" $nsdk_evalsoc_lds
   echo "Finished preparing Nuclei SDK files"
 }
 

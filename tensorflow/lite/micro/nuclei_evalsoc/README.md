@@ -158,11 +158,11 @@ Example usage:
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 # cd to where this script located
-cd tensorflow/lite/micro/nuclei_demosoc
+cd tensorflow/lite/micro/nuclei_evalsoc
 ## current CORE is nx900fd, RISV-ARCH is rv64imafdc
 # select your CORE, for example, n205, n900fd
 ## Support CORE list can be found in SUPPORTED_CORES
-## in tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_corearchabi.inc
+## in tensorflow/lite/micro/tools/make/targets/nuclei_evalsoc_corearchabi.inc
 ## for example, select CORE nx900fd
 export CORE=nx900fd
 # select your ARCH_EXT, for example, p, pv
@@ -187,8 +187,8 @@ example by make command.
 ~~~shell
 pwd
 # make sure you are in the root directory of tflite-micro repo
-# CORE, ARCH_EXT, DOWNLOAD, SIMU are new introduced make variables supppored by TARGET=nuclei_demosoc
-## CORE can be set to be one of the SUPPORTED_CORES in tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_corearchabi.inc
+# CORE, ARCH_EXT, DOWNLOAD, SIMU are new introduced make variables supppored by TARGET=nuclei_evalsoc
+## CORE can be set to be one of the SUPPORTED_CORES in tensorflow/lite/micro/tools/make/targets/nuclei_evalsoc_corearchabi.inc
 ## such as CORE=nx900f
 ## ARCH_EXT can be set to empty or p, v, pv
 ## such as ARCH_EXT=p ARCH_EXT= ARCH_EXT=pv
@@ -198,18 +198,18 @@ pwd
 # You can set OPTIMIZED_KERNEL_DIR=nmsis_nn to select optimized nmsis_nn tflite-micro kernels
 ### Examples
 ## 1. Build kernel_conv_test for n300f with p extension, and optimized with nmsis_nn
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn kernel_conv_test
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn kernel_conv_test
 ## 2. If you want to run on qemu, SIMU=qemu is required to pass to make, and clean project and rebuild is required
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn clean
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn clean
 ## 3. Build and run on qemu for kernel_conv_test
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn test_kernel_conv_test
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn test_kernel_conv_test
 ## 4. Build and run on qemu for micro_speech_test without nmsis_nn optimized kernel for nx600fd - p
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=nx600fd ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn test_micro_speech_test
-## The build elf can be found in tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/
-# for micro_speech_test, it should be tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/bin/micro_speech_test
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=nx600fd ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn test_micro_speech_test
+## The build elf can be found in tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx600fdp_micro/
+# for micro_speech_test, it should be tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx600fdp_micro/bin/micro_speech_test
 ## 5. Build and run all test cases on qemu for CORE=n300f ARCH_EXT=p
-## Need to use 4M ilm linker script file LINKER_SCRIPT=tensorflow/lite/micro/nuclei_demosoc/gcc_ilm_4M.ld
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_demosoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn LINKER_SCRIPT=tensorflow/lite/micro/nuclei_demosoc/gcc_ilm_4M.ld test
+## Need to use 4M ilm linker script file LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_4M.ld
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_4M.ld test
 ## all the test cases will be ran on qemu, and show Pass Rate
 ~~~
 
@@ -226,7 +226,7 @@ you can type following command to download program.
 # load application
 (gdb) load /path/to/tflite-micro/prebuilt_elf
 # example command to load prebuilt elf
-# (gdb) load /home/lab/tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx600fdp_micro/bin/micro_speech_test
+# (gdb) load /home/lab/tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx600fdp_micro/bin/micro_speech_test
 # resume core execution
 (gdb) monitor resume
 # quit gdb
@@ -297,7 +297,7 @@ This script will run all the test cases and record run log into log file.
 
 ## FAQs
 
-### Default ilm/dlm size in demosoc is 64K/64K, need to change it to 512K to run these cases
+### Default ilm/dlm size in evalsoc is 64K/64K, need to change it to 512K to run these cases
 
 If you met issue like this: `section \`.text' will not fit in region \`ilm'`, this is caused by ilm size is not big enough to store the code, 64K is not enough to run this application, please use 512K, if you want to run on hardware,
 please make sure your hardware configured with 512K ILM/DLM.
@@ -307,7 +307,7 @@ Some cases may need to change to bigger ilm/dlm to run on qemu, such as 4M.
 Now this patching step is done by build system, no need to do any more steps.
 
 ~~~shell
-sed -i "s/64K/512K/g" /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_sdk/SoC/demosoc/Board/nuclei_fpga_eval/Source/GCC/gcc_demosoc_ilm.ld
+sed -i "s/64K/512K/g" /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_sdk/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/gcc_evalsoc_ilm.ld
 ~~~
 
 ### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip'
@@ -349,7 +349,7 @@ collect2: error: ld returned 1 exit status
 signalr.c:(.text._kill_r+0x14): warning: _kill is not implemented and will always fail
 /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-lseekr.o): in function `.L0 ':
 lseekr.c:(.text._lseek_r+0x16): warning: _lseek is not implemented and will always fail
-make: *** [tensorflow/lite/micro/examples/micro_speech/Makefile.inc:230: tensorflow/lite/micro/tools/make/gen/nuclei_demosoc_nx900fdpv_micro/bin/micro_features_generator_test] Error 1
+make: *** [tensorflow/lite/micro/examples/micro_speech/Makefile.inc:230: tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx900fdpv_micro/bin/micro_features_generator_test] Error 1
 /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-readr.o): in function `.L0 ':
 readr.c:(.text._read_r+0x16): warning: _read is not implemented and will always fail
 /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/bin/ld: /home/share/devtools/nucleistudio/2022.04/NucleiStudio/toolchain/gcc/bin/../lib/gcc/riscv-nuclei-elf/10.2.0/../../../../riscv-nuclei-elf/lib/rv64imafdc/lp64d/libc_nano.a(lib_a-writer.o): in function `.L0 ':
@@ -362,7 +362,7 @@ Then you clean the project first by adding `CLEAN=1`, such as steps below
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 # cd to where this script located
-cd tensorflow/lite/micro/nuclei_demosoc
+cd tensorflow/lite/micro/nuclei_evalsoc
 # Assume CORE and ARCH_EXT environment variable are exported 
 # clean project first before run micro_speech_test provided in micro_speech example
 CLEAN=1 ./run.sh micro_speech_test
@@ -378,7 +378,7 @@ Normally most will be solved by install `libglib2.0-0 libpixman-1-0`
 ### declared 'static' but never defined [-Werror=unused-function]
 
 Need to add extra compiler option `-Wno-unused-function` in **PLATFORM_FLAGS** of
-`tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_makefile.inc`.
+`tensorflow/lite/micro/tools/make/targets/nuclei_evalsoc_makefile.inc`.
 
 ### svdf.cc:272:7: error: cannot convert 'int16_t*' {aka 'short int*'} to 'q7_t*' {aka 'signed char*'}
 
@@ -398,8 +398,8 @@ The simple solution is use the NMSIS DSP/NN 1.1.1 we used in Nuclei SDK 0.4.1.
 
 1. Make sure the NMSIS version is v1.1.1 (Corresponding nuclei SDK version is v0.4.1), if not, please change to this version,
    just replace NMSIS from nuclei sdk 0.4.1
-2. Adapt `tensorflow/lite/micro/tools/make/targets/nuclei_demosoc_makefile.inc` line 112 to 149
-3. If you are using Nuclei RISC-V CPU, please select correct CORE according to nuclei_demosoc_corearchabi.inc,
+2. Adapt `tensorflow/lite/micro/tools/make/targets/nuclei_evalsoc_makefile.inc` line 112 to 149
+3. If you are using Nuclei RISC-V CPU, please select correct CORE according to nuclei_evalsoc_corearchabi.inc,
    for example, if your RISC-V ARCH is rv32imafdc, and CPU is 300 series, then select CORE=n300fd,
    if you have extra p/v extension, such as p, then ARCH_EXT should be ``p``
 4. Then **DOWNLOAD** should set to correct mode to match the linker script file you want to use

@@ -90,7 +90,7 @@ inline TFLMRegistration Register_FULLY_CONNECTED_INT8() {
 
 #endif
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 // Returns a TFLMRegistration struct for kernel variant that only supports
 // int16.
 TFLMRegistration Register_FULLY_CONNECTED_INT16();

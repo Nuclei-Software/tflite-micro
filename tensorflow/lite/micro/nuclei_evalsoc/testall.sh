@@ -1,6 +1,6 @@
 #!/bin/env bash
 DRYRUN=${DRYRUN:-0}
-TARGET=nuclei_demosoc
+TARGET=nuclei_evalsoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 LOGDIR=${LOGDIR:-gentest}
 NUCLEI_SDK_NMSIS=${NUCLEI_SDK_NMSIS-}
@@ -18,7 +18,7 @@ TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 LDSCRIPT=${LDSCRIPT-${SCRIPTDIR}/gcc_ilm_4M.ld}
 
 if [ "x$DRYRUN" == "x0" ] ; then
-    rm -rf $BUILDGENDIR/nuclei_demosoc*
+    rm -rf $BUILDGENDIR/nuclei_evalsoc*
 fi
 
 mkdir -p $LOGDIR

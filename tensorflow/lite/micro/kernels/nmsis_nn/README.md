@@ -24,18 +24,18 @@ if you have that version of prebuilt library, you can specify NUCLEI_SDK_NMSIS=<
 Building the kernel conv unit test.
 
 For more information about this specific target, check out
-[Nuclei Demosoc QEMU software](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/nuclei-demosoc/README.md).
+[Nuclei Demosoc QEMU software](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/nuclei-evalsoc/README.md).
 
 Using prebuilt NMSIS-NN library prebuilt in downloaded Nuclei SDK.
 
 ```
-make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn TARGET=nuclei_demosoc kernel_conv_test
+make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn TARGET=nuclei_evalsoc kernel_conv_test
 ```
 
 Using prebuilt NMSIS-NN library built in NMSIS repo, not the one in Nuclei SDK.
 
 ```
-make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn NUCLEI_SDK_NMSIS=<external/path/to/NMSIS/NMSIS> TARGET=nuclei_demosoc kernel_conv_test
+make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn NUCLEI_SDK_NMSIS=<external/path/to/NMSIS/NMSIS> TARGET=nuclei_evalsoc kernel_conv_test
 ```
 
 **Notice:**

@@ -1,5 +1,5 @@
 #!/bin/env bash
-TARGET=nuclei_demosoc
+TARGET=nuclei_evalsoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 CORE=${CORE:-nx900fd}
 DOWNLOAD=${DOWNLOAD:-ilm}

@@ -1,7 +1,7 @@
 #!/bin/env bash
-TARGET=nuclei_demosoc
+TARGET=nuclei_evalsoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
-TARGET=nuclei_demosoc
+TARGET=nuclei_evalsoc
 CORE=${CORE:-nx900fd}
 DOWNLOAD=${DOWNLOAD:-ilm}
 ARCH_EXT=${ARCH_EXT-pv}
@@ -21,7 +21,7 @@ CASE=${2:-add}
 
 TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
-APPBINS=tensorflow/lite/micro/tools/make/gen/${TARGET}_${CORE}${ARCH_EXT}_micro/bin
+APPBINS=gen/${TARGET}_${CORE}${ARCH_EXT}_micro/bin
 
 makeopts="-f ${TF_ROOT}/tensorflow/lite/micro/tools/make/Makefile -j DOWNLOAD=${DOWNLOAD} TARGET=${TARGET} CORE=${CORE} ARCH_EXT=${ARCH_EXT} OPTIMIZED_KERNEL_DIR=${OPTIMIZED}"
 

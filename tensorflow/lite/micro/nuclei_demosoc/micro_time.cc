@@ -24,15 +24,15 @@ limitations under the License.
 namespace tflite {
 
 #if !defined(TF_LITE_USE_CTIME)
-int32_t ticks_per_second() { return SystemCoreClock; }
+uint32_t ticks_per_second() { return SystemCoreClock; }
 
-int32_t GetCurrentTimeTicks() { return __get_rv_cycle(); }
+uint32_t GetCurrentTimeTicks() { return __get_rv_cycle(); }
 
 #else  // defined(TF_LITE_USE_CTIME)
 // For platforms that support ctime, we implment the micro_time interface in
 // this central location.
-int32_t ticks_per_second() { return CLOCKS_PER_SEC;  }
+uint32_t ticks_per_second() { return CLOCKS_PER_SEC;  }
     
-int32_t GetCurrentTimeTicks() { return clock();  }
+uint32_t GetCurrentTimeTicks() { return clock();  }
 #endif
 }  // namespace tflite

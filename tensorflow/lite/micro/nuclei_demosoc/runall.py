@@ -32,6 +32,13 @@ def run_app(app, case, core, archext, log, build=False):
             for line in lf.readlines():
                 if "~~~ALL TESTS PASSED~~~" in line:
                     ret = True
+                # micro_speech_mock
+                if "Heard yes" in line:
+                    ret = True
+                    break
+                # person_detection
+                if "person score" in line:
+                    ret = True
                     break
     if ret == True:
         print(" PASS")

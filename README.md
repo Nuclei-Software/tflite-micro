@@ -19,6 +19,8 @@ TensorFlow Lite for Microcontrollers is a port of TensorFlow Lite designed to
 run machine learning models on DSPs, microcontrollers and other devices with
 limited memory.
 
+> **NOTE**: Looking for how to run on Nuclei RISC-V Processor, please check [this guidance](tensorflow/lite/micro/nuclei_demosoc/README.md)
+
 Additional Links:
  * [Tensorflow github repository](https://github.com/tensorflow/tensorflow/)
  * [TFLM at tensorflow.org](https://www.tensorflow.org/lite/microcontrollers)

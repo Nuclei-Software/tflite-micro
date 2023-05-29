@@ -4,7 +4,11 @@ This folder contains TFLite kernel operations optimized for Nuclei RISC-V Proces
 
 It is designed to be portable even to 'bare metal', so it follows the same design goals as the micro experimental port.
 
-## How to quick explore it
+# How to quick explore it
+
+This TFLM support is done based on Nuclei SDK 0.3.8 release, see https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.3.8
+
+It mainly works on Nuclei Demo SoC, an fpga prototype SoC to test different kinds of Nuclei RISC-V Processor.
 
 ## Install third party requirements
 

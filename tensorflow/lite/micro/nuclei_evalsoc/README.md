@@ -10,7 +10,16 @@ This TFLM support is done based on Nuclei SDK 0.4.1 release, see https://github.
 
 It mainly works on Nuclei Evaluation SoC, an fpga prototype SoC to test different kinds of Nuclei RISC-V Processor.
 
-## Install third party requirements
+## Install TFLM
+
+Here are two ways to install tflm(tflite micro)：
+
+1. Terminal
+2. Dockerfile (easy and quick)
+
+### 1. Install TFLM in terminal
+
+**step1: Install third party requirements**
 
 ~~~shell
 sudo apt install -y python3-pip
@@ -18,13 +27,13 @@ pip3 install Pillow
 pip3 install Wave
 ~~~
 
-## Setup
+**step2: Setup**
 
 > Please make sure the steps are executed.
 >
 > Make sure you have good network connection to download files in tensorflow/lite/micro/tools/make/third_party_downloads.inc
 
-### Setup Third Party Files
+1. Setup Third Party Files
 
 Some third party files are also required to be downloaded, but it might fail due to bad connection. So we prepare the predownload
 folder `downloads` exclude only `nuclei_studio`, include `nuclei_sdk`.
@@ -47,7 +56,7 @@ drwxr-xr-x 79 hqfang hqfang 4096 Feb  9 11:05 pigweed/
 drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
 ~~~
 
-### Setup Nuclei Studio for TFLM
+2. Setup Nuclei Studio for TFLM
 
 Download Nuclei Studio 2022.12 from https://nucleisys.com/download.php and extract it.
 
@@ -55,19 +64,14 @@ Setup up path for build system.
 
 ~~~shell
 # Make sure your are in tflm repo directory
-cd /path/to/tensorflow
-# Export PATH for nuclei gcc/qemu/openocd
-export NSTC=/path/to/NucleiStudio_IDE_202212/NucleiStudio/toolchain
-export PATH=$NSTC/qemu/bin:$NSTC/gcc/bin:$NSTC/openocd/bin:$PATH
-# if you don't want to download IDE again when build application, please create soft link
-# strongly suggest do the following steps, since network might fail
-cd tensorflow/lite/micro/tools/make/downloads/
+cd /path/to/tensorflow/lite/micro/tools/make/downloads/
+
 # make sure no nuclei_studio in this directory exist, if yes, backup it as need and then remove it
 # MUST do soft link here and remove existing nuclei_studio if exist
 ln -s /path/to/NucleiStudio_IDE_202212 nuclei_studio
 ~~~
 
-### Setup Nuclei SDK for TFLM
+3. Setup Nuclei SDK for TFLM
 
 > If you download and installed third_party_downloads.zip, then there is no need to install nuclei sdk.
 >
@@ -89,7 +93,7 @@ unzip /path/to/nuclei-sdk-0.4.1.zip
 mv nuclei-sdk-0.4.1 nuclei_sdk
 ~~~
 
-### Check the setup
+4. Check the setup
 
 If you have setup the environment, please check the it should contains files as below.
 
@@ -143,6 +147,40 @@ drwxr-xr-x 13 hqfang nucleisys   69632 Apr  1  2022 plugins/
 drwxr-xr-x  2 hqfang nucleisys    4096 Sep 22  2020 readme/
 drwxrwxr-x  5 hqfang nucleisys    4096 Apr  1  2022 toolchain/
 -rw-rw-r--  1 hqfang nucleisys       0 Apr  1  2022 Ver.2022-12.txt
+~~~
+
+### 2. Install TFLM in docker
+
+With Docker, you can install your software environment quickly.
+
+**step1: prepare**
+
+Download dockerfile, link is here [Dockerfile](https://github.com/Nuclei-Software/tflite-micro/blob/nuclei/nsdk_0.4.1/tensorflow/lite/micro/nuclei_evalsoc/Dockerfile) 
+
+Download tflm_third_downloads.zip from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcy0ezTG0
+
+Download Nuclei Studio 2022.12 from https://nucleisys.com/download.php
+
+Then, Copy them to your workdir.
+
+~~~sh
+$ mkdir workdir
+$ cd workdir
+# copy to workdir
+$ ls
+Dockerfile  NucleiStudio_IDE_202212-lin64.tgz  tflm_third_downloads_0.4.1.zip
+~~~
+
+**step2: build docker images**
+
+~~~sh
+$ sudo docker build -f Dockerfile -t nuclei_tflm:v0.4.1
+~~~
+
+**step3: build docker images**
+
+~~~sh
+$ sudo docker run -ti localhost/nuclei_tflm:v1.0:v0.4.1
 ~~~
 
 ## Run
@@ -237,7 +275,7 @@ you can type following command to download program.
 (gdb) quit
 ~~~
 
-## Run all examples for different CORE and ARCH_EXT
+### Run all examples for different CORE and ARCH_EXT
 
 In this folder, we provided a script to run all examples in one script.
 
@@ -267,7 +305,7 @@ gen/nx900fd/pv/run.log:nx900fdpv Pass/Total: 17/17=100.000%
 
 This script will run all the application and record run log into log file.
 
-## Run all test cases for different CORE and ARCH_EXT
+### Run all test cases for different CORE and ARCH_EXT
 
 In this folder, we provided a script to run test all the cases in qemu in one script.
 

@@ -180,7 +180,7 @@ $ sudo docker build -f Dockerfile -t nuclei_tflm:v0.4.1
 **step3: build docker images**
 
 ~~~sh
-$ sudo docker run -ti localhost/nuclei_tflm:v1.0:v0.4.1
+$ sudo docker run -ti localhost/nuclei_tflm:v0.4.1
 ~~~
 
 ## Run

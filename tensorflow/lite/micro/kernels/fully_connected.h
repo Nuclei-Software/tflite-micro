@@ -85,7 +85,7 @@ TfLiteStatus CalculateOpDataFullyConnected(
 // implementation (reference or optimized) must define this function.
 TFLMRegistration Register_FULLY_CONNECTED();
 
-#if defined(CMSIS_NN) || defined(HEXAGON) || defined(XTENSA)
+#if defined(CMSIS_NN) || defined(HEXAGON) || defined(XTENSA) || defined(NMSIS_NN)
 // Returns a TFLMRegistration struct for kernel variant that only supports
 // int8.
 TFLMRegistration Register_FULLY_CONNECTED_INT8();

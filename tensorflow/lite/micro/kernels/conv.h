@@ -95,7 +95,7 @@ inline TFLMRegistration Register_CONV_2D_INT8REF() {
 }
 #endif  // defined(XTENSA)
 
-#if defined(CMSIS_NN) || defined(NMSIS_NN)
+#if defined(CMSIS_NN)
 // Returns a TFLMRegistration struct for kernel variant that only supports
 // int8 activations and int4 weights and uses the latency optimized
 // implementations.

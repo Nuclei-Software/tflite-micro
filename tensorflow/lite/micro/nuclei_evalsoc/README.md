@@ -38,7 +38,7 @@ pip3 install Wave
 Some third party files are also required to be downloaded, but it might fail due to bad connection. So we prepare the predownload
 folder `downloads` exclude only `nuclei_studio`, include `nuclei_sdk`.
 
-Please download `tflm_third_downloads.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcy0ezTG0
+Please download `tflm_third_downloads_0.4.1.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcGZPqO7J
 
 ~~~shell
 # Make sure your are in tflm repo directory

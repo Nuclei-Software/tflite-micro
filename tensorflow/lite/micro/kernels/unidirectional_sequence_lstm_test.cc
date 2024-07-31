@@ -140,7 +140,6 @@ TF_LITE_MICRO_TEST(TestUnidirectionalLSTMFloat) {
                                                tolerance, float_node_contents);
 }
 
-#if !(defined(CMSIS_NN) || defined(NMSIS_NN))
 TF_LITE_MICRO_TEST(TestUnidirectionalLSTMInt8) {
   const tflite::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
       tflite::testing::Get2X2LstmEvalCheckData();

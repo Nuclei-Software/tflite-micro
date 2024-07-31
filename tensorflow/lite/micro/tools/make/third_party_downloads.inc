@@ -40,3 +40,9 @@ EMBARC_MLI_PRE_COMPILED_URL := "https://github.com/foss-for-synopsys-dwc-arc-pro
 EMBARC_MLI_PRE_COMPILED_MD5 := "173990c2dde4efef6a2c95b92d1f0244"
 
 # Skip md5sum-check since ethos-u-core-driver download link is non-deterministic, see  https://github.com/google/gitiles/issues/84
+
+NUCLEI_SDK_URL := "https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.3.7.zip"
+NUCLEI_SDK_MD5 := "777d2434e8fc78654e552e2968e9a8bb"
+
+NUCLEI_STUDIO_URL := "https://nucleisys.com/upload/files/nucleistudio/NucleiStudio_IDE_202204-lin64.tgz"
+NUCLEI_STUDIO_MD5 := "4b26968b3372a25ac760b036c0da2b2d"

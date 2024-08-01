@@ -41,8 +41,8 @@ EMBARC_MLI_PRE_COMPILED_MD5 := "173990c2dde4efef6a2c95b92d1f0244"
 
 # Skip md5sum-check since ethos-u-core-driver download link is non-deterministic, see  https://github.com/google/gitiles/issues/84
 
-NUCLEI_SDK_URL := "https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.4.1.zip"
-NUCLEI_SDK_MD5 := "87a2051111b33ab6ed7f3b1406cc2587"
+NUCLEI_SDK_URL := "https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.6.0.zip"
+NUCLEI_SDK_MD5 := "25fb53b09bb26814ddf31065ce423d5f"
 
-NUCLEI_STUDIO_URL := "https://nucleisys.com/upload/files/nucleistudio/NucleiStudio_IDE_202212-lin64.tgz"
-NUCLEI_STUDIO_MD5 := "3da56d73497539ffb3b08c3601f3d5d0"
+NUCLEI_STUDIO_URL := "https://download.nucleisys.com/upload/files/nucleistudio/NucleiStudio_IDE_202406-lin64.tgz"
+NUCLEI_STUDIO_MD5 := "68ce01901fe3441d4cc9c4909e0ca72f"

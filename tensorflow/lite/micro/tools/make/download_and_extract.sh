@@ -27,11 +27,9 @@ set -e
 # Patches the Nuclei SDK to work around build issues with bigger ilm/dlm.
 patch_nuclei_sdk() {
   local nsdk_dir="${1}"
-
-  local nsdk_evalsoc_lds=${1}/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/gcc_evalsoc_ilm.ld
-
+  local nsdk_evalsoc_mem=${nsdk_dir}/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/evalsoc.memory
   echo "Patching Nuclei SDK, change evalsoc ilm link script file, ilm/dlm size changed from 64K to 512K"
-  sed -i "s/64K/512K/g" $nsdk_evalsoc_lds
+  sed -i "s/0x10000/0x80000/g" $nsdk_evalsoc_mem
   echo "Finished preparing Nuclei SDK files"
 }
 

@@ -1,6 +1,6 @@
-TARGET_TOOLCHAIN_PREFIX := riscv-nuclei-elf-
+TARGET_TOOLCHAIN_PREFIX := riscv64-unknown-elf-
 CORE ?= nx900fd
-ARCH_EXT ?= pv
+ARCH_EXT ?= v_xxldsp 
 DOWNLOAD ?= ilm
 SIMU ?=
 
@@ -20,7 +20,7 @@ $(error Here we only support these cores: $(SUPPORTED_CORES))
 endif
 # Check whether CORE_ARCH_ABI is presented for CORE
 ifneq ($(words $(wordlist 1, 2, $(CORE_ARCH_ABI))), 2)
-$(error No correct CORE_ARCH_ABI setting for CORE=$(CORE) found in $(realpath $(MAKEFILE_DIR)/targets/nuclei_evalsoc_corearchabi.inc)
+$(error No correct CORE_ARCH_ABI setting for CORE=$(CORE) found in $(realpath $(MAKEFILE_DIR)/targets/nuclei_evalsoc_corearchabi.inc))
 endif
 
 # Handle Nuclei RISC-V ARCH/ABI/CMODEL/TUNE
@@ -60,6 +60,7 @@ PLATFORM_FLAGS = \
   -mabi=$(RISCV_ABI) \
   -mtune=$(RISCV_TUNE) \
   -mcmodel=$(RISCV_CMODEL) \
+  -isystem=/include/newlib-nano \
   -fno-common \
   -mexplicit-relocs \
   -fno-builtin-printf \
@@ -80,7 +81,7 @@ PLATFORM_FLAGS = \
   -Wextra \
   -Wsign-compare \
   -Wdouble-promotion \
-  -Wshadow \
+  -Wno-shadow \
   -Wunused-variable \
   -Wmissing-field-initializers \
   -Wno-unused-parameter \
@@ -134,11 +135,11 @@ LINKER_SCRIPT ?= $(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GC
 LDFLAGS += \
  -T $(LINKER_SCRIPT) \
  -Wl,-M,-Map=$(@)_build.map \
- -nostartfiles \
- --specs=nano.specs -u _printf_float \
- --specs=nosys.specs \
+ -nostartfiles -nodefaultlibs -u _printf_float -Wl,--no-warn-rwx-segments \
  -Wl,--gc-sections -Wl,--check-sections \
- -u _isatty -u _write -u _sbrk -u _read -u _close -u _fstat -u _lseek -u _getpid -u _kill \
+ -Wl,--start-group -lc_nano -lgcc -lstdc++ -Wl,--end-group \
+ -u _isatty -u _open -u _write -u _sbrk -u _read -u _close -u _fstat -u _lseek -u errno -u __errno -u __dso_handle -u _kill -u _getpid \
+ -L$(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC \
  -L$(NUCLEI_SDK_NMSIS)/Library/NN/GCC
 
 $(info Use and link with NMSIS NN library, ARCH=$(RISCV_ARCH))

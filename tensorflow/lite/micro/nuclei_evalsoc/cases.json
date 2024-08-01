@@ -1,20 +1,16 @@
 {
+  "dtln": [
+    "dtln_test"
+  ],
+
   "hello_world": [
     "hello_world",
-    "evaluate_cc_test"
+    "hello_world_test"
   ],
 
   "micro_speech": [
-    "micro_speech_test",
-    "micro_speech_mock",
-    "micro_features_generator_test",
-    "audio_provider_test",
-    "audio_provider_mock_test",
-    "command_responder_test",
-    "feature_provider_test",
-    "feature_provider_mock_test",
-    "recognize_commands_test",
-    "simple_features_generator_test"
+    "micro_speech",
+    "micro_speech_test"
   ],
 
   "network_tester": [

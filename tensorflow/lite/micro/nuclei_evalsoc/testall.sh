@@ -15,7 +15,7 @@ LOGDIR=$(pwd)/$LOGDIR
 BUILDGENDIR=${SCRIPTDIR}/../tools/make/gen
 TF_ROOT=$(readlink -f $SCRIPTDIR/../../../..)
 
-LDSCRIPT=${LDSCRIPT-${SCRIPTDIR}/gcc_ilm_4M.ld}
+LDSCRIPT=${LDSCRIPT-${SCRIPTDIR}/gcc_ilm_8M.ld}
 
 if [ "x$DRYRUN" == "x0" ] ; then
     rm -rf $BUILDGENDIR/nuclei_evalsoc*
@@ -51,35 +51,54 @@ function clean_tflite {
     fi
 }
 
+CORE_ARCH=(
+    "n205" 
+    "n205 _xxldsp" 
+    "n300" 
+    "n300 _xxldsp" 
+    "n600f" 
+    "n600f _zve32f" 
+    "n600f _xxldsp" 
+    "n600f _zve32f_xxldsp" 
+    "n900fd" 
+    "n900fd _zve32f" 
+    "n900fd _xxldsp" 
+    "n900fd _zve32f_xxldsp" 
+    "nx900" 
+    "nx900 _xxldsp" 
+    "nx900f" 
+    "nx900f _zve64f" 
+    "nx900f _xxldsp" 
+    "nx900f _zve64f_xxldsp"
+    "nx900fd"
+    "nx900fd v"
+    "nx900fd _xxldsp"
+    "nx900fd v_xxldsp"
+)
+
 pushd $TF_ROOT
-for core in n205 n300 n600f n900fd nx900 nx900f nx900fd
-do
-    for archext in "" p v pv
-    do
-        echo "Run for $core$archext"
-        if [[ "$core" != *"x"* ]] || [[ "$core" != *"f"* ]] ; then
-            if [[ "$archext" == *"v"* ]] ; then
-                echo "Ignore $core$archext"
-                continue
-            fi
-        fi
-        if [ "x$archext" == "x" ] ; then
-            logdir="$LOGDIR/$core/ref"
-        else
-            logdir="$LOGDIR/$core/$archext"
-        fi
-        if [ "x$CLEAN" == "x1" ] ; then
-            clean_tflite $core $archext
-        fi
-        RUNCMD="$BUILDCMD CORE=$core ARCH_EXT=$archext -j test"
-        echo $RUNCMD
-        runlog=$logdir/run.log
-        if [ "x$DRYRUN" == "x0" ] ; then
-            mkdir -p $logdir
-            eval $RUNCMD | tee $runlog
-        fi
-    done
+
+for corearch in "${CORE_ARCH[@]}"; do
+    echo "Run for $corearch"
+    # determine core and archext
+    read core archext <<< "$corearch"
+
+    if [ "x$archext" == "x" ] ; then
+        logdir="$LOGDIR/$core/ref"
+    else
+        logdir="$LOGDIR/$core/$archext"
+    fi
+    if [ "x$CLEAN" == "x1" ] ; then
+        clean_tflite $core $archext
+    fi
+    RUNCMD="$BUILDCMD CORE=$core ARCH_EXT=$archext -j test"
+    echo $RUNCMD
+    runlog=$logdir/run.log
+    if [ "x$DRYRUN" == "x0" ] ; then
+        mkdir -p $logdir
+        eval $RUNCMD | tee $runlog
+    fi
 done
 popd
-find $LOGDIR -name "run.log" | xargs grep "Pass Rate"
+find $LOGDIR -name "run.log" | xargs grep -a "Pass Rate"
 unset NUCLEI_SDK_NMSIS

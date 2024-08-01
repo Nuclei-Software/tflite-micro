@@ -113,13 +113,14 @@ function run_for_target {
         corearch=${corearch//_micro/}
         break
     done
-    if [[ "$corearch" == *"x"* ]] ; then
-        CORE=nx900fd
-        ARCH_EXT=bpkv
-    else
-        CORE=n900fd
-        ARCH_EXT=bpkv
+    # find the first '_' position index from 1
+    local position=$(expr index "$corearch" '_')
+    if [ ${corearch:$position-2:1} == "v" ]; then
+        position=$(($position - 1))
     fi
+    CORE=${corearch:0:$position-1}
+    ARCH_EXT=${corearch:$position-1}
+
     RESULTS_DIRECTORY=$LOGDIR/run_logs
     mkdir -p ${RESULTS_DIRECTORY}
     run_all_tests

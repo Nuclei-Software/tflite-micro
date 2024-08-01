@@ -1,10 +1,9 @@
 #!/bin/env bash
-TARGET=nuclei_evalsoc
 OPTIMIZED=${OPTIMIZED-nmsis_nn}
 TARGET=nuclei_evalsoc
 CORE=${CORE:-nx900fd}
 DOWNLOAD=${DOWNLOAD:-ilm}
-ARCH_EXT=${ARCH_EXT-pv}
+ARCH_EXT=${ARCH_EXT-v_xxldsp}
 CLEAN=${CLEAN:-0}
 BUILD=${BUILD:-0}
 RUNON=${RUNON:-qemu}

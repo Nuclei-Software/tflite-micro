@@ -27,8 +27,8 @@ ENTRY( _start )
 
 MEMORY
 {
-  ilm (rxa!w) : ORIGIN = 0x80000000, LENGTH = 4M
-  ram (wxa!r) : ORIGIN = 0x90000000, LENGTH = 4M
+  ilm (rxa!w) : ORIGIN = 0x80000000, LENGTH = 8M
+  ram (wxa!r) : ORIGIN = 0x90000000, LENGTH = 8M
 }
 
 REGION_ALIAS("ROM", ilm)
@@ -45,8 +45,9 @@ SECTIONS
 
   .init           :
   {
-    *(.vtable)
-    *(.vtable_s)
+    *(.text.vtable)
+    *(.text.vtable_s)
+    *(.text.init)
     KEEP (*(SORT_NONE(.init)))
     . = ALIGN(4);
   } >ROM AT>ROM
@@ -55,64 +56,41 @@ SECTIONS
   {
     *(.text.unlikely .text.unlikely.*)
     *(.text.startup .text.startup.*)
+    . = ALIGN(8);
+    PROVIDE( __jvt_base$ = . );
+    *(.text.tbljal .text.tbljal.*)
     *(.text .text.*)
     *(.gnu.linkonce.t.*)
-  } >ROM AT>ROM
-
-  .fini           :
-  {
+    /* .fini */
+    . = ALIGN(8);
     KEEP (*(SORT_NONE(.fini)))
-  } >ROM AT>ROM
-
-  .preinit_array  :
-  {
+    /* .preinit_array */
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array))
     PROVIDE_HIDDEN (__preinit_array_end = .);
-  } >ROM AT>ROM
-
-  .init_array     :
-  {
+    /* .init_array */
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__init_array_start = .);
     KEEP (*(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*)))
     KEEP (*(.init_array EXCLUDE_FILE (*crtbegin.o *crtbegin?.o *crtend.o *crtend?.o ) .ctors))
     PROVIDE_HIDDEN (__init_array_end = .);
-  } >ROM AT>ROM
-
-  .fini_array     :
-  {
+    /* .fini_array */
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__fini_array_start = .);
+    PROVIDE_HIDDEN (__libc_fini = _fini);
     KEEP (*(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*)))
     KEEP (*(.fini_array EXCLUDE_FILE (*crtbegin.o *crtbegin?.o *crtend.o *crtend?.o ) .dtors))
     PROVIDE_HIDDEN (__fini_array_end = .);
-  } >ROM AT>ROM
-
-  .ctors          :
-  {
-    /* gcc uses crtbegin.o to find the start of
-     * the constructors, so we make sure it is
-     * first.  Because this is a wildcard, it
-     * doesn't matter if the user does not
-     * actually link against crtbegin.o; the
-     * linker won't look for a file to match a
-     * wildcard.  The wildcard also means that it
-     * doesn't matter which directory crtbegin.o
-     * is in.
-     */
+    /* .ctors */
+    . = ALIGN(8);
     KEEP (*crtbegin.o(.ctors))
     KEEP (*crtbegin?.o(.ctors))
-    /* We don't want to include the .ctor section from
-     * the crtend.o file until after the sorted ctors.
-     * The .ctor section from the crtend file contains the
-     * end of ctors marker and it must be last
-     */
     KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .ctors))
     KEEP (*(SORT(.ctors.*)))
     KEEP (*(.ctors))
-  } >ROM AT>ROM
-
-  .dtors          :
-  {
+    /* .dtors */
+    . = ALIGN(8);
     KEEP (*crtbegin.o(.dtors))
     KEEP (*crtbegin?.o(.dtors))
     KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .dtors))
@@ -148,16 +126,23 @@ SECTIONS
     *(.rdata)
     *(.rodata .rodata.*)
     *(.gnu.linkonce.r.*)
+    /* Fix undefined symbol: __eh_frame_start/__eh_frame_hdr_start/__eh_frame_end/__eh_frame_hdr_end */
+    PROVIDE_HIDDEN (__eh_frame_hdr_start = .);
+    *(.eh_frame_hdr)
+    PROVIDE_HIDDEN (__eh_frame_hdr_end = .);
+    PROVIDE_HIDDEN (__eh_frame_start = .);
+    *(.eh_frame)
+    PROVIDE_HIDDEN (__eh_frame_end = .);
     /* below sections are used for rt-thread */
-    . = ALIGN(4);
+    . = ALIGN(8);
     __rt_init_start = .;
     KEEP(*(SORT(.rti_fn*)))
     __rt_init_end = .;
-    . = ALIGN(4);
+    . = ALIGN(8);
     __fsymtab_start = .;
     KEEP(*(FSymTab))
     __fsymtab_end = .;
-    . = ALIGN(4);
+    . = ALIGN(8);
     __vsymtab_start = .;
     KEEP(*(VSymTab))
     __vsymtab_end = .;

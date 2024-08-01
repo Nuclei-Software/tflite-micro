@@ -95,7 +95,7 @@ function run_app {
             local qemucmd="qemu-system-riscv32"
         fi
         which ${qemucmd}
-        runcmd="${qemucmd} -M nuclei_n,download=${DOWNLOAD} -cpu nuclei-${CORE},ext=${ARCH_EXT} \
+        runcmd="${qemucmd} -M nuclei_evalsoc,download=${DOWNLOAD} -cpu nuclei-${CORE},ext=${ARCH_EXT} \
             -nodefaults -nographic -serial stdio -kernel $appfile"
     elif [ "x$RUNON" == "xxlspike" ] ; then
         runcmd="xl_spike $appfile"

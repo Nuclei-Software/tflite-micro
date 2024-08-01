@@ -50,7 +50,7 @@ function run_test {
             local qemucmd="qemu-system-riscv32"
         fi
         which ${qemucmd}
-        runcmd="${qemucmd} -M nuclei_n,download=ilm -cpu nuclei-${CORE},ext=${ARCH_EXT} \
+        runcmd="${qemucmd} -M nuclei_evalsoc,download=ilm -cpu nuclei-${CORE},ext=${ARCH_EXT} \
             -nodefaults -nographic -serial stdio -kernel $testfile"
     elif [ "x$RUNON" == "xxlspike" ] ; then
         runcmd="xl_spike $testfile"
@@ -71,7 +71,7 @@ function run_check_test {
     if [ "$PASS_STRING" == "non_test_binary" ] ; then
         run_test $testfile 2>&1 | tee $logfile
     else
-        run_test $testfile > $logfile 2>&1
+        run_test $testfile 2>&1 | tee $logfile
         local psmsg=$(cat $logfile | grep "$PASS_STRING")
         if [ "x$psmsg" == "x" ] ; then
             return 1
@@ -109,7 +109,6 @@ function run_for_target {
     do
         arrs=(${binary//\// })
         corearch=${arrs[-3]}
-        corearch=${corearch//nuclei_evalsoc_/}
         corearch=${corearch//nuclei_evalsoc_/}
         corearch=${corearch//_micro/}
         break

@@ -84,7 +84,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="TFLite Runner for Nuclei RISC-V Processor on QEMU")
     parser.add_argument('--cfg', help="JSON Configuration File")
     parser.add_argument('--core', default="nx900fd", help="JSON Configuration File")
-    parser.add_argument('--archext', default="pv", help="Nuclei ARCH Extension, such as p, v, pv")
+    parser.add_argument('--archext', default="v_xxldsp", help="Nuclei ARCH Extension, such as _xxldsp, v, v_xxldsp")
     parser.add_argument('--logdir', default='logs', help="logs directory, default logs")
 
     args = parser.parse_args()

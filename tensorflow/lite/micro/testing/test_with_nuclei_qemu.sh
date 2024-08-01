@@ -71,7 +71,7 @@ function run_check_test {
     if [ "$PASS_STRING" == "non_test_binary" ] ; then
         run_test $testfile 2>&1 | tee $logfile
     else
-        run_test $testfile 2>&1 | tee $logfile
+        run_test $testfile > $logfile 2>&1
         local psmsg=$(cat $logfile | grep "$PASS_STRING")
         if [ "x$psmsg" == "x" ] ; then
             return 1

@@ -470,4 +470,4 @@ The simple solution is use the NMSIS DSP/NN 1.1.1 we used in Nuclei SDK 0.4.1. O
 
 ### Where is 'nuclei_demosoc'
 
-In branch `nuclei/nsdk_0.4.1`, we use `nuclei_demosoc` as `TARGET`, but in Nuclei SDK 0.6.0, `nuclei_demosoc` has been replaced with `nuclei_evalsoc`.
+In branch `nuclei/nsdk_0.3.8`, we use `nuclei_demosoc` as `TARGET`, but in Nuclei SDK 0.6.0, `nuclei_demosoc` has been replaced with `nuclei_evalsoc`.

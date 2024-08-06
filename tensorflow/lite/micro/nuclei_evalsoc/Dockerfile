@@ -28,7 +28,7 @@ RUN apt update          \
 RUN DEBIAN_FRONTEND=noninteractive apt install -y libglib2.0-dev
 
 # Git clone tflm
-RUN git clone -b nuclei/nsdk_0.4.1 https://github.com/Nuclei-Software/tflite-micro.git
+RUN git clone -b nuclei/nsdk_0.6.0 https://github.com/Nuclei-Software/tflite-micro.git
 
 # Download Nuclei toolchain and third part
 ENV TFLM_ROOT ${WORK_PATH}/tflite-micro
@@ -36,17 +36,17 @@ ENV TFLM_DOWNLOADS ${TFLM_ROOT}/tensorflow/lite/micro/tools/make/downloads
 ENV TFLM_WORK ${TFLM_ROOT}/tensorflow/lite/micro/nuclei_evalsoc
 
 WORKDIR $TFLM_DOWNLOADS
-COPY NucleiStudio_IDE_202212-lin64.tgz .
-COPY tflm_third_downloads_0.4.1.zip .
-RUN tar -zxvf NucleiStudio_IDE_202212-lin64.tgz > /dev/null \
+COPY NucleiStudio_IDE_202406-lin64.tgz .
+COPY tflm_third_downloads_0.6.0.zip .
+RUN tar -zxvf NucleiStudio_IDE_202406-lin64.tgz > /dev/null \
     &&                                                      \
-    ln -s NucleiStudio_IDE_202212 nuclei_studio
+    ln -s NucleiStudio_IDE_202406 nuclei_studio
 
-RUN unzip tflm_third_downloads_0.4.1.zip  > /dev/null \
+RUN unzip tflm_third_downloads_0.6.0.zip  > /dev/null \
     &&                                                \
     cp downloads/* . -rf                              \
     &&                                                \
-    sed -i "s/64K/512K/g" nuclei_sdk/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/gcc_evalsoc_ilm.ld
+    sed -i "s/0x10000/0x80000/g" nuclei_sdk/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/evalsoc.memory
 
 # Check file preparare OK
 RUN ls -l

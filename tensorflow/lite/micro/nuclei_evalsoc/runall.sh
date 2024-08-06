@@ -22,9 +22,9 @@ mkdir -p $LOGDIR
 
 CORE_ARCH=(
     "n205" 
-    "n205 _xxldsp" 
     "n300" 
     "n300 _xxldsp" 
+    "n300fd _xxldspn3x" 
     "n600f" 
     "n600f _zve32f" 
     "n600f _xxldsp" 

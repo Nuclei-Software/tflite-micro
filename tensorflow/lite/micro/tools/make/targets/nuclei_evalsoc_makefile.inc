@@ -106,8 +106,7 @@ CXXFLAGS += $(PLATFORM_FLAGS) \
   -fno-threadsafe-statics \
   -fno-use-cxa-atexit \
   -fpermissive \
-  -fno-rtti \
-  --std=gnu++11
+  -fno-rtti
 
 CCFLAGS += $(PLATFORM_FLAGS)
 
@@ -139,7 +138,7 @@ LDFLAGS += \
  -Wl,--gc-sections -Wl,--check-sections \
  -Wl,--start-group -lc_nano -lgcc -lstdc++ -Wl,--end-group \
  -u _isatty -u _open -u _write -u _sbrk -u _read -u _close -u _fstat -u _lseek -u errno \
- -u __errno -u __dso_handle -u _kill -u _getpid -u __unordsf2 -u __addsf3 -u __ltsf2 -u __eqsf2 \
+ -u __errno -u __dso_handle -u _kill -u _getpid -u __unordsf2 -u __addsf3 -u __ltsf2 -u __eqsf2 -u puts\
  -L$(NUCLEI_SDK_ROOT)/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC \
  -L$(NUCLEI_SDK_NMSIS)/Library/NN/GCC
 

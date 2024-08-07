@@ -289,7 +289,6 @@ gen/nx900f/_xxldsp/run.log:nx900f_xxldsp Pass/Total: 10/10=100.000%
 gen/nx900f/ref/run.log:nx900f Pass/Total: 10/10=100.000%
 gen/nx900f/_zve64f/run.log:nx900f_zve64f Pass/Total: 10/10=100.000%
 gen/nx900f/_zve64f_xxldsp/run.log:nx900f_zve64f_xxldsp Pass/Total: 10/10=100.000%
-gen/n205/_xxldsp/run.log:n205_xxldsp Pass/Total: 10/10=100.000%
 gen/n205/ref/run.log:n205 Pass/Total: 10/10=100.000%
 gen/nx900fd/v/run.log:nx900fdv Pass/Total: 10/10=100.000%
 gen/nx900fd/_xxldsp/run.log:nx900fd_xxldsp Pass/Total: 10/10=100.000%
@@ -301,6 +300,7 @@ gen/n600f/_zve32f/run.log:n600f_zve32f Pass/Total: 10/10=100.000%
 gen/n600f/_xxldsp/run.log:n600f_xxldsp Pass/Total: 10/10=100.000%
 gen/n600f/ref/run.log:n600f Pass/Total: 10/10=100.000%
 gen/n600f/_zve32f_xxldsp/run.log:n600f_zve32f_xxldsp Pass/Total: 10/10=100.000%
+gen/n300fd/_xxldspn3x/run.log:n300fd_xxldspn3x Pass/Total: 10/10=100.000%
 gen/n300/_xxldsp/run.log:n300_xxldsp Pass/Total: 10/10=100.000%
 gen/n300/ref/run.log:n300 Pass/Total: 10/10=100.000%
 gen/n900fd/_zve32f/run.log:n900fd_zve32f Pass/Total: 10/10=100.000%
@@ -331,17 +331,17 @@ In this folder, we provided a script [testall.sh](testall.sh) to test all the ca
 LOGDIR=gentest bash testall.sh
 # current version status on qemu
 find gentest -name "run.log" | xargs grep "Pass Rate"
-gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(123/124)=99.19%
+gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(124/124)=100.00%
 gentest/nx900f/ref/run.log:Target nx900f, Pass Rate(124/124)=100.00%
 gentest/nx900f/_zve64f/run.log:Target nx900f_zve64f, Pass Rate(124/124)=100.00%
 gentest/nx900f/_zve64f_xxldsp/run.log:Target nx900f_zve64f_xxldsp, Pass Rate(124/124)=100.00%
 gentest/n205/_xxldsp/run.log:Target n205_xxldsp, Pass Rate(124/124)=100.00%
 gentest/n205/ref/run.log:Target n205, Pass Rate(124/124)=100.00%
 gentest/nx900fd/v/run.log:Target nx900fdv, Pass Rate(124/124)=100.00%
-gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(123/124)=99.19%
+gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(124/124)=100.00%
 gentest/nx900fd/ref/run.log:Target nx900fd, Pass Rate(124/124)=100.00%
 gentest/nx900fd/v_xxldsp/run.log:Target nx900fdv_xxldsp, Pass Rate(124/124)=100.00%
-gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(123/124)=99.19%
+gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(124/124)=100.00%
 gentest/nx900/ref/run.log:Target nx900, Pass Rate(124/124)=100.00%
 gentest/n600f/_zve32f/run.log:Target n600f_zve32f, Pass Rate(124/124)=100.00%
 gentest/n600f/_xxldsp/run.log:Target n600f_xxldsp, Pass Rate(124/124)=100.00%

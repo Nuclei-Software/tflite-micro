@@ -247,13 +247,13 @@ make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qem
 make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=_xxldsp OPTIMIZED_KERNEL_DIR=nmsis_nn clean
 ## 3. Build and run on qemu for kernel_conv_test
 make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=_xxldsp OPTIMIZED_KERNEL_DIR=nmsis_nn test_kernel_conv_test
-## 4. Build and run on qemu for micro_speech_test without nmsis_nn optimized kernel for nx600fd - p
+## 4. Build and run on qemu for micro_speech_test without nmsis_nn optimized kernel for nx600fd with p extension
 make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=nx600fd ARCH_EXT=_xxldsp test_micro_speech_test
-## The build elf can be found in tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx600fdp_micro/
-# for micro_speech_test, it should be tensorflow/lite/micro/tools/make/gen/nuclei_evalsoc_nx600fdp_micro/bin/micro_speech_test
+## The build elf can be found in gen/nuclei_evalsoc_nx600fd_xxldsp_micro/bin/
+# for micro_speech_test, it should be gen/nuclei_evalsoc_nx600fd_xxldsp_micro/bin/micro_speech_test
 ## 5. Build and run all test cases on qemu for CORE=n300f ARCH_EXT=_xxldsp
-## Need to use 4M ilm linker script file LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_8M.ld
-make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=p OPTIMIZED_KERNEL_DIR=nmsis_nn LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_8M.ld test
+## Need to use 8M ilm linker script file LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_8M.ld
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=nuclei_evalsoc SIMU=qemu CORE=n300f ARCH_EXT=_xxldsp OPTIMIZED_KERNEL_DIR=nmsis_nn LINKER_SCRIPT=tensorflow/lite/micro/nuclei_evalsoc/gcc_ilm_8M.ld test
 ## all the test cases will be ran on qemu, and show Pass Rate
 ~~~
 
@@ -332,7 +332,7 @@ LOGDIR=gentest bash testall.sh
 # current version status on qemu
 find gentest -name "run.log" | xargs grep "Pass Rate"
 gentest/n205/ref/run.log:Target n205, Pass Rate(124/124)=100.00%
-gentest/n300fd/_xxldspn3x/run.log:Target n300fd_xxldspn3x, Pass Rate(124/124)=100.00%
+gentest/n300fd/_xxldspn3x/run.log:Target n300fd_xxldspn3x, Pass Rate(123/124)=99.19%
 gentest/n300/ref/run.log:Target n300, Pass Rate(124/124)=100.00%
 gentest/n300/_xxldsp/run.log:Target n300_xxldsp, Pass Rate(124/124)=100.00%
 gentest/n600f/ref/run.log:Target n600f, Pass Rate(124/124)=100.00%
@@ -346,13 +346,13 @@ gentest/n900fd/_zve32f_xxldsp/run.log:Target n900fd_zve32f_xxldsp, Pass Rate(124
 gentest/nx900fd/ref/run.log:Target nx900fd, Pass Rate(124/124)=100.00%
 gentest/nx900fd/v/run.log:Target nx900fdv, Pass Rate(124/124)=100.00%
 gentest/nx900fd/v_xxldsp/run.log:Target nx900fdv_xxldsp, Pass Rate(124/124)=100.00%
-gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(124/124)=100.00%
+gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(123/124)=99.19%
 gentest/nx900f/ref/run.log:Target nx900f, Pass Rate(124/124)=100.00%
-gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(124/124)=100.00%
+gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(123/124)=99.19%
 gentest/nx900f/_zve64f/run.log:Target nx900f_zve64f, Pass Rate(124/124)=100.00%
 gentest/nx900f/_zve64f_xxldsp/run.log:Target nx900f_zve64f_xxldsp, Pass Rate(124/124)=100.00%
 gentest/nx900/ref/run.log:Target nx900, Pass Rate(124/124)=100.00%
-gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(124/124)=100.00%
+gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(123/124)=99.19%
 ~~~
 
 This script will run all the test cases and record run log into log file.

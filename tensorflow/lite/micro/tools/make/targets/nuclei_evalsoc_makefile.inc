@@ -1,6 +1,6 @@
 TARGET_TOOLCHAIN_PREFIX := riscv64-unknown-elf-
 CORE ?= nx900fd
-ARCH_EXT ?= v_xxldsp 
+ARCH_EXT ?= v_xxldsp
 DOWNLOAD ?= ilm
 SIMU ?=
 

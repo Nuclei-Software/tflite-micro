@@ -40,7 +40,7 @@ make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn 
 
 - Performance and/or size might be affected when using external NMSIS-NN library as different compiler options may have been used.
 - External prebuilt NMSIS-NN library need to be built successfully before using it, and make sure you are using a compatiable version.
-- Current intergated NMSIS-NN version is 1.2.1 provides the following optimized kernels:
+- Current intergated NMSIS-NN version is 1.3.1 provides the following optimized kernels:
   - [x] add (int8/int16)
   - [x] depthwise_conv_2d (int4/int8/int16)
   - [x] fully_connected (int4/int8/int16)
@@ -49,14 +49,9 @@ make -f tensorflow/lite/micro/tools/make/Makefile OPTIMIZED_KERNEL_DIR=nmsis_nn 
   - [x] max_pool_2d (int8/int16)
   - [x] softmax (int8/int16)
   - [x] svdf (int8/int16)
-  - [ ] conv_2d
-  - [ ] transpose_conv
-  - [ ] unidirectional_sequence_lstm
-  - [ ] mean
-  - [ ] reduce_max
-  - [ ] sum
+  - [x] conv_2d
   - [ ] ... 
   
-  all kernel operations are listed in [micro_ops.h](../micro_ops.h), except kernel operations listed above, other kernels are also not optimized yet.
+  all kernel operators are listed in [micro_ops.h](../micro_ops.h), except kernel operators listed above, other kernels are also not optimized yet.
 
-- The ILM/DLM size are not 64K, it is changed to 512K, so if you want to run on hardware, please take care the ILM/DLM size in Soc running on your FPGA board.
+- Take care about the ILM/DLM size configuration of Nuclei SDK. The build process can failed when ILM/DLM size is not enough. Check FAQ in [README.md](../../nuclei_evalsoc/README.md) for more information.

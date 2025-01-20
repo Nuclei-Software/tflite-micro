@@ -3,7 +3,7 @@
 #
 FROM ubuntu:20.04
 
-MAINTAINER nuclei
+LABEL maintainer="nuclei"
 
 ENV WORK_PATH /home
 WORKDIR ${WORK_PATH}
@@ -28,7 +28,7 @@ RUN apt update          \
 RUN DEBIAN_FRONTEND=noninteractive apt install -y libglib2.0-dev
 
 # Git clone tflm
-RUN git clone -b nuclei/nsdk_0.6.0 https://github.com/Nuclei-Software/tflite-micro.git
+RUN git clone -b nuclei/nsdk_0.7.1 https://github.com/Nuclei-Software/tflite-micro.git
 
 # Download Nuclei toolchain and third part
 ENV TFLM_ROOT ${WORK_PATH}/tflite-micro
@@ -37,12 +37,12 @@ ENV TFLM_WORK ${TFLM_ROOT}/tensorflow/lite/micro/nuclei_evalsoc
 
 WORKDIR $TFLM_DOWNLOADS
 COPY NucleiStudio_IDE_202406-lin64.tgz .
-COPY tflm_third_downloads_0.6.0.zip .
+COPY tflm_third_downloads_0.7.1.zip .
 RUN tar -zxvf NucleiStudio_IDE_202406-lin64.tgz > /dev/null \
     &&                                                      \
     ln -s NucleiStudio_IDE_202406 nuclei_studio
 
-RUN unzip tflm_third_downloads_0.6.0.zip  > /dev/null \
+RUN unzip tflm_third_downloads_0.7.1.zip  > /dev/null \
     &&                                                \
     cp downloads/* . -rf                              \
     &&                                                \

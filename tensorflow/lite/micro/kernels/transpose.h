@@ -16,7 +16,8 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_MICRO_KERNELS_TRANSPOSE_H_
 #define TENSORFLOW_LITE_MICRO_KERNELS_TRANSPOSE_H_
 
-#include "tensorflow/lite/c/common.h"
+#include "tensorflow/lite/micro/micro_common.h"
+#include "tensorflow/lite/micro/micro_context.h"
 
 namespace tflite {
 
@@ -46,7 +47,7 @@ struct TransposeContext {
 TfLiteStatus TransposePrepare(TfLiteContext* context, TfLiteNode* node);
 TFLMRegistration Register_TRANSPOSE();
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 TFLMRegistration Register_TRANSPOSE_INT8();
 #else
 inline TFLMRegistration Register_TRANSPOSE_INT8() {

@@ -62,7 +62,7 @@ void TestUnidirectionalLSTMInteger(
 
 // CMSIS-NN does not use the hidden state and cell state tensors so these tests
 // fail.
-#if !defined(CMSIS_NN)
+#if !defined(CMSIS_NN) && !defined(NMSIS_NN)
   float dequantized_hidden_state[batch_size * state_dimension] = {};
   Dequantize(node_contents.GetHiddenStateData(), batch_size * state_dimension,
              quantization_settings.hidden_state.scale,

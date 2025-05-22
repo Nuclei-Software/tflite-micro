@@ -80,7 +80,7 @@ TFLMRegistration Register_MAXIMUM();
 
 TFLMRegistration Register_MINIMUM();
 
-#if defined(CMSIS_NN)
+#if defined(CMSIS_NN) || defined(NMSIS_NN)
 // Returns a TFLMRegistration struct for kernel variant that only supports
 // int8.
 TFLMRegistration Register_MAXIMUM_INT8();

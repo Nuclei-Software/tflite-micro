@@ -824,7 +824,7 @@ TF_LITE_MICRO_TEST(SimpleTestQuantizedInt16Compressed) {
 
 #endif  // USE_TFLM_COMPRESSION
 
-#if !defined(XTENSA) && !defined(CMSIS_NN)
+#if !defined(XTENSA) && !defined(CMSIS_NN) && !defined(NMSIS_NN)
 
 TF_LITE_MICRO_TEST(SimpleTestPerChannelQuantizedInt16) {
   const float input_scale = 128.0 / 65536;

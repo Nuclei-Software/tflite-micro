@@ -6,7 +6,7 @@ It is designed to be portable even to 'bare metal', so it follows the same desig
 
 # How to quick explore it
 
-This TFLM support is done based on Nuclei SDK 0.7.1 release, see https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.7.1
+This TFLM support is done based on Nuclei SDK 0.8.0 release, see https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.8.0
 
 It mainly works on Nuclei Evaluation SoC, an fpga prototype SoC to test different kinds of Nuclei RISC-V Processor.
 
@@ -36,7 +36,7 @@ pip3 install Wave
 
 Some third party files are also required to be downloaded, but it might fail due to bad connection. So we prepare the predownload folder `downloads` exclude only `nuclei_studio`, include `nuclei_sdk`.
 
-Please download `tflm_third_downloads_0.7.1.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcr0OwQhA
+Please download `tflm_third_downloads_0.8.0.zip` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcg1gQYi2
 
 ~~~shell
 # Make sure your are in tflm repo directory
@@ -44,7 +44,7 @@ cd /path/to/tensorflow
 cd tensorflow/lite/micro/tools/make
 # make sure no downloads in this directory exist, if yes, backup it as need and then remove it
 mv downloads downloads_old
-unzip /path/to/tflm_third_downloads_0.7.1.zip
+unzip /path/to/tflm_third_downloads_0.8.0.zip
 ls -l downloads
 drwxr-xr-x 34 hqfang hqfang 4096 Feb  9 10:59 flatbuffers/
 drwxr-xr-x 15 hqfang hqfang 4096 Feb  9 11:06 gemmlowp/
@@ -56,7 +56,7 @@ drwxr-xr-x  7 hqfang hqfang 4096 Feb  9 11:06 ruy/
 
 2. Setup Nuclei Studio for TFLM
 
-Download Nuclei Studio 2024.06 from https://nucleisys.com/download.php and extract it.
+Download Nuclei Studio 2025.02 from https://nucleisys.com/download.php and extract it.
 
 Setup up path for build system.
 
@@ -66,29 +66,29 @@ cd /path/to/tensorflow/lite/micro/tools/make/downloads/
 
 # make sure no nuclei_studio in this directory exist, if yes, backup it as need and then remove it
 # MUST do soft link here and remove existing nuclei_studio if exist
-ln -s /path/to/NucleiStudio_IDE_202406 nuclei_studio
+ln -s /path/to/NucleiStudio_IDE_202502 nuclei_studio
 ~~~
 
 3. Setup Nuclei SDK for TFLM
 
-> If you download and installed third_party_downloads_0.7.1.zip, then there is no need to install nuclei sdk.
+> If you download and installed third_party_downloads_0.8.0.zip, then there is no need to install nuclei sdk.
 >
 > If you are porting this TFLM to your SoC, please take care to use the same version of NMSIS DSP/NN used in
-> nuclei sdk 0.7.1 version which is currently supported in this version of TFLM.
+> nuclei sdk 0.8.0 version which is currently supported in this version of TFLM.
 
-Manually download nuclei-sdk 0.7.1 from github release or wework share link:
+Manually download nuclei-sdk 0.8.0 from github release or wework share link:
 
-- github release: https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.7.1
-- wework share link: https://drive.weixin.qq.com/s?k=ABcAKgdSAFcPvG2HM4
+- github release: https://github.com/Nuclei-Software/nuclei-sdk/releases/tag/0.8.0
+- wework share link: https://drive.weixin.qq.com/s?k=ABcAKgdSAFcJtLJpjE
 
 ~~~shell
 # Make sure your are in tflm repo directory
 cd /path/to/tensorflow
 cd tensorflow/lite/micro/tools/make/downloads/
-# unzip the downloaded nuclei-sdk 0.7.1 release zip nuclei-sdk-0.7.1.zip
+# unzip the downloaded nuclei-sdk 0.8.0 release zip nuclei-sdk-0.8.0.zip
 # make sure no nuclei_sdk in this directory exist, if yes, backup it as need and then remove it
-unzip /path/to/nuclei-sdk-0.7.1.zip
-mv nuclei-sdk-0.7.1 nuclei_sdk
+unzip /path/to/nuclei-sdk-0.8.0.zip
+mv nuclei-sdk-0.8.0 nuclei_sdk
 ~~~
 
 4. Check the setup
@@ -106,7 +106,7 @@ drwxrwxr-x 36 jdqiu jdqiu 4096 Jan 17 18:50 flatbuffers/
 drwxrwxr-x 15 jdqiu jdqiu 4096 Jul 25 10:52 gemmlowp/
 drwxrwxr-x  5 jdqiu jdqiu 4096 Jul 25 10:49 kissfft/
 drwxrwxr-x 12 jdqiu jdqiu 4096 Jan 17 18:37 nuclei_sdk/
-lrwxrwxrwx  1 jdqiu jdqiu   30 Jan 20 10:19 nuclei_studio -> /home/share/devtools/nucleistudio/2024.06/ # this is a soft link to existing nuclei studio
+lrwxrwxrwx  1 jdqiu jdqiu   30 Jan 20 10:19 nuclei_studio -> /home/share/devtools/nucleistudio/2025.02/ # this is a soft link to existing nuclei studio
 drwxrwxr-x 79 jdqiu jdqiu 4096 Jul 25 10:50 pigweed/
 drwxrwxr-x  7 jdqiu jdqiu 4096 Jul 25 10:52 ruy/
 # check nuclei_sdk folder
@@ -159,9 +159,9 @@ With Docker, you can install your software environment quickly.
 
 Download dockerfile, link is here [Dockerfile](./Dockerfile) 
 
-Download tflm_third_downloads_0.7.1.zip from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcr0OwQhA
+Download tflm_third_downloads_0.8.0.zip from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcr0OwQhA
 
-Download Nuclei Studio 2024.06 from https://nucleisys.com/download.php
+Download Nuclei Studio 2025.02 from https://nucleisys.com/download.php
 
 Then, Copy them to your workdir.
 
@@ -170,19 +170,19 @@ $ mkdir workdir
 $ cd workdir
 # copy to workdir
 $ ls
-Dockerfile  NucleiStudio_IDE_202406-lin64.tgz  tflm_third_downloads_0.7.1.zip
+Dockerfile  NucleiStudio_IDE_202502-lin64.tgz  tflm_third_downloads_0.8.0.zip
 ~~~
 
 **step2: build docker images**
 
 ~~~sh
-$ sudo docker build -f Dockerfile -t nuclei_tflm:v0.7.1 .
+$ sudo docker build -f Dockerfile -t nuclei_tflm:v0.8.0 .
 ~~~
 
 **step3: build docker images**
 
 ~~~sh
-$ sudo docker run -ti localhost/nuclei_tflm:v0.7.1
+$ sudo docker run -ti localhost/nuclei_tflm:v0.8.0
 ~~~
 
 ## Run
@@ -369,18 +369,18 @@ Now this patching step is done by build system, no need to do any more steps.
 sed -i "s/0x10000/0x80000/g" /path/to/tensorflow/lite/micro/tools/make/downloads/nuclei_sdk/SoC/evalsoc/Board/nuclei_fpga_eval/Source/GCC/evalsoc.memory
 ~~~
 
-### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.7.1.zip'
+### Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.8.0.zip'
 
 If you don't have good network connection, you may met following issue.
 
 ~~~shell
 tensorflow/lite/micro/tools/make/downloads/nuclei_sdk patch_nuclei_sdk
-downloading https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.7.1.zip
+downloading https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.8.0.zip
 curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
 + [[ 35 -eq 0 ]]
 + [[ 35 -ne 56 ]]
-+ echo 'Error 35 downloading '\''https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.7.1.zip'\'''
-Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.7.1.zip'
++ echo 'Error 35 downloading '\''https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.8.0.zip'\'''
+Error 35 downloading 'https://github.com/Nuclei-Software/nuclei-sdk/archive/refs/tags/0.8.0.zip'
 ~~~
 
 Then you need to manually delete the empty folder `tensorflow/lite/micro/tools/make/downloads/nuclei_sdk`, and you can follow
@@ -455,7 +455,7 @@ Using NMSIS DSP/NN 1.1.1 will fix this issue. Or update to Nuclei SDK 0.6.0 or h
 
 ### Simple steps about how to port to Nuclei Subsystem SDK
 
-1. Make sure the NMSIS version is v1.3.1 (Corresponding nuclei SDK version is v0.7.1), if not, please change to this version.
+1. Make sure the NMSIS version is v1.4.0 (Corresponding nuclei SDK version is v0.8.0), if not, please change to this version.
 2. Adapt [nuclei_evalsoc_makefile.inc](../tools/make/targets/nuclei_evalsoc_makefile.inc) with proper compiler flags and linker flags.
 3. If you are using Nuclei RISC-V CPU, please select correct `CORE` and `ARCH_EXT` according to [nuclei_evalsoc_corearchabi.inc](../tools/make/targets/nuclei_evalsoc_corearchabi.inc).
   For example, if your RISC-V ARCH is `rv32imafdc`, and CPU is 300 series, then select `CORE=n300fd`,

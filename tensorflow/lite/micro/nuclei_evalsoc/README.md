@@ -329,28 +329,28 @@ In this folder, we provided a script [testall.sh](testall.sh) to test all the ca
 LOGDIR=gentest bash testall.sh
 # current version status on qemu
 find gentest -name "run.log" | xargs grep "Pass Rate"
-gentest/n205/ref/run.log:Target n205, Pass Rate(126/126)=100.00%
-gentest/n300/ref/run.log:Target n300, Pass Rate(126/126)=100.00%
-gentest/n300/_xxldsp/run.log:Target n300_xxldsp, Pass Rate(126/126)=100.00%
-gentest/n300fd/_xxldspn3x/run.log:Target n300fd_xxldspn3x, Pass Rate(126/126)=100.00%
-gentest/n600f/ref/run.log:Target n600f, Pass Rate(126/126)=100.00%
-gentest/n600f/_zve32f/run.log:Target n600f_zve32f, Pass Rate(126/126)=100.00%
-gentest/n600f/_xxldsp/run.log:Target n600f_xxldsp, Pass Rate(126/126)=100.00%
-gentest/n600f/_zve32f_xxldsp/run.log:Target n600f_zve32f_xxldsp, Pass Rate(126/126)=100.00%
-gentest/n900fd/ref/run.log:Target n900fd, Pass Rate(126/126)=100.00%
-gentest/n900fd/_zve32f/run.log:Target n900fd_zve32f, Pass Rate(126/126)=100.00%
-gentest/n900fd/_xxldsp/run.log:Target n900fd_xxldsp, Pass Rate(126/126)=100.00%
-gentest/n900fd/_zve32f_xxldsp/run.log:Target n900fd_zve32f_xxldsp, Pass Rate(126/126)=100.00%
-gentest/nx900/ref/run.log:Target nx900, Pass Rate(126/126)=100.00%
-gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(126/126)=100.00%
-gentest/nx900f/ref/run.log:Target nx900f, Pass Rate(126/126)=100.00%
-gentest/nx900f/_zve64f/run.log:Target nx900f_zve64f, Pass Rate(126/126)=100.00%
-gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(126/126)=100.00%
-gentest/nx900f/_zve64f_xxldsp/run.log:Target nx900f_zve64f_xxldsp, Pass Rate(126/126)=100.00%
-gentest/nx900fd/ref/run.log:Target nx900fd, Pass Rate(126/126)=100.00%
-gentest/nx900fd/v/run.log:Target nx900fdv, Pass Rate(126/126)=100.00%
-gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(126/126)=100.00%
-gentest/nx900fd/v_xxldsp/run.log:Target nx900fdv_xxldsp, Pass Rate(126/126)=100.00%
+gentest/n205/ref/run.log:Target n205, Pass Rate(127/127)=100.00%
+gentest/n300/ref/run.log:Target n300, Pass Rate(127/127)=100.00%
+gentest/n300/_xxldsp/run.log:Target n300_xxldsp, Pass Rate(127/127)=100.00%
+gentest/n300fd/_xxldspn3x/run.log:Target n300fd_xxldspn3x, Pass Rate(127/127)=100.00%
+gentest/n600f/ref/run.log:Target n600f, Pass Rate(127/127)=100.00%
+gentest/n600f/_zve32f/run.log:Target n600f_zve32f, Pass Rate(127/127)=100.00%
+gentest/n600f/_xxldsp/run.log:Target n600f_xxldsp, Pass Rate(127/127)=100.00%
+gentest/n600f/_zve32f_xxldsp/run.log:Target n600f_zve32f_xxldsp, Pass Rate(127/127)=100.00%
+gentest/n900fd/ref/run.log:Target n900fd, Pass Rate(127/127)=100.00%
+gentest/n900fd/_zve32f/run.log:Target n900fd_zve32f, Pass Rate(127/127)=100.00%
+gentest/n900fd/_xxldsp/run.log:Target n900fd_xxldsp, Pass Rate(127/127)=100.00%
+gentest/n900fd/_zve32f_xxldsp/run.log:Target n900fd_zve32f_xxldsp, Pass Rate(127/127)=100.00%
+gentest/nx900/ref/run.log:Target nx900, Pass Rate(127/127)=100.00%
+gentest/nx900/_xxldsp/run.log:Target nx900_xxldsp, Pass Rate(127/127)=100.00%
+gentest/nx900f/ref/run.log:Target nx900f, Pass Rate(127/127)=100.00%
+gentest/nx900f/_zve64f/run.log:Target nx900f_zve64f, Pass Rate(127/127)=100.00%
+gentest/nx900f/_xxldsp/run.log:Target nx900f_xxldsp, Pass Rate(127/127)=100.00%
+gentest/nx900f/_zve64f_xxldsp/run.log:Target nx900f_zve64f_xxldsp, Pass Rate(127/127)=100.00%
+gentest/nx900fd/ref/run.log:Target nx900fd, Pass Rate(127/127)=100.00%
+gentest/nx900fd/v/run.log:Target nx900fdv, Pass Rate(127/127)=100.00%
+gentest/nx900fd/_xxldsp/run.log:Target nx900fd_xxldsp, Pass Rate(127/127)=100.00%
+gentest/nx900fd/v_xxldsp/run.log:Target nx900fdv_xxldsp, Pass Rate(127/127)=100.00%
 ~~~
 
 This script will run all the test cases and record run log into log files.

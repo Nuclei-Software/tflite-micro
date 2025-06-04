@@ -71,7 +71,7 @@ ln -s /path/to/NucleiStudio_IDE_202502 nuclei_studio
 
 3. Setup Nuclei SDK for TFLM
 
-> If you download and installed third_party_downloads_0.8.0.zip, then there is no need to install nuclei sdk.
+> If you download and installed ``third_party_downloads_0.8.0.zip``, then there is no need to install nuclei sdk.
 >
 > If you are porting this TFLM to your SoC, please take care to use the same version of NMSIS DSP/NN used in
 > nuclei sdk 0.8.0 version which is currently supported in this version of TFLM.
@@ -159,9 +159,9 @@ With Docker, you can install your software environment quickly.
 
 Download dockerfile, link is here [Dockerfile](./Dockerfile) 
 
-Download tflm_third_downloads_0.8.0.zip from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcr0OwQhA
+Download ``tflm_third_downloads_0.8.0.zip`` from https://drive.weixin.qq.com/s?k=ABcAKgdSAFcg1gQYi2
 
-Download Nuclei Studio 2025.02 from https://nucleisys.com/download.php
+Download ``Nuclei Studio 2025.02`` from https://nucleisys.com/download.php
 
 Then, Copy them to your workdir.
 

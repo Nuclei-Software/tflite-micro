@@ -113,13 +113,27 @@ function run_for_target {
         corearch=${corearch//_micro/}
         break
     done
-    # find the first '_' position index from 1
+    # find the first '_' position index, the result is 1-based
     local position=$(expr index "$corearch" '_')
-    if [ ${corearch:$position-2:1} == "v" ]; then
+    if [[ $position == 0 ]]; then
+        # if there is no '_' in corearch
+        if [[ ${corearch: -1} == "v" ]]; then
+            # if the last char is 'v', position points to 'v'
+            # char index is 0-based so the position is 'length - 1'
+            position=$((${#corearch} - 1))
+        else
+            position=${#corearch}
+        fi
+    else
+        # the search result is 1-based, but char index is 0-based
         position=$(($position - 1))
+        if [[ ${corearch:$position-1:1} == "v" ]]; then
+            # if the last char is 'v', position points to 'v'
+            position=$(($position - 1))
+        fi
     fi
-    CORE=${corearch:0:$position-1}
-    ARCH_EXT=${corearch:$position-1}
+    CORE=${corearch:0:$position}
+    ARCH_EXT=${corearch:$position}
 
     RESULTS_DIRECTORY=$LOGDIR/run_logs
     mkdir -p ${RESULTS_DIRECTORY}
@@ -137,5 +151,3 @@ else
     run_all_tests | tee $fulllog
     echo "Please check the full log in $fulllog"
 fi
-
-
